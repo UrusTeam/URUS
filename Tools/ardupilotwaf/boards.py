@@ -461,6 +461,50 @@ class mini_pix(chibios):
         env.DEFINES.update(
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_CHIBIOS_MINIPIX',
         )
+class urushal(Board):
+    abstract = True
+
+    def configure_env(self, cfg, env):
+        super(urushal, self).configure_env(cfg, env)
+
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD = 'HAL_BOARD_URUS',
+            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_NONE',
+        )
+
+        if not cfg.env.DEBUG:
+            env.CXXFLAGS += [
+                '-O3',
+            ]
+
+        env.LIB += [
+            'm',
+        ]
+
+        cfg.check_librt(env)
+
+        env.LINKFLAGS += ['-pthread',]
+        env.AP_LIBRARIES += [
+            'AP_HAL_URUS',
+            'AP_HAL_URUS/CORE_URUS',
+            'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
+        ]
+
+        if sys.platform == 'cygwin':
+            env.LIB += [
+                'winmm',
+            ]
+
+    def build(self, bld):
+        super(urushal, self).build(bld)
+
+class urussitl(urushal):
+    def configure_env(self, cfg, env):
+        super(urussitl, self).configure_env(cfg, env)
+
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_NONE',
+        )
 
 class linux(Board):
     def configure_env(self, cfg, env):
