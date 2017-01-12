@@ -488,6 +488,7 @@ class urushal(Board):
             'AP_HAL_URUS',
             'AP_HAL_URUS/CORE_URUS',
             'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
+            'AP_HAL_URUS/CORE_URUS/U_CoreAndroid',
         ]
 
         if sys.platform == 'cygwin':
