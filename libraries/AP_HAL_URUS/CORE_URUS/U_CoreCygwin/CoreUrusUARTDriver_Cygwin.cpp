@@ -17,7 +17,7 @@
 //      Copyright (c) 2010 Michael Smith. All rights reserved.
 //
 #include <AP_HAL/AP_HAL.h>
-#if defined(__CYGWIN__)
+#if defined(__CYGWIN__) && (CONFIG_SHAL_CORE_CYGWIN == SHAL_CORE_CYGWIN)
 
 #include <limits.h>
 #include <stdlib.h>

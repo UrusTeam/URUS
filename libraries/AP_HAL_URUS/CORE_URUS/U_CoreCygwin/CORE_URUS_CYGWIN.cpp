@@ -1,5 +1,5 @@
-
-#if defined(__CYGWIN__)
+#include <AP_HAL/AP_HAL.h>
+#if defined(__CYGWIN__) && (CONFIG_SHAL_CORE_CYGWIN == SHAL_CORE_CYGWIN)
 
 #include "../CORE_URUS.h"
 #include "../CORE_URUS_NAMESPACE.h"
