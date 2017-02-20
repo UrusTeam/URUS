@@ -280,12 +280,13 @@ class urushal(Board):
     def build(self, bld):
         super(urushal, self).build(bld)
 
-class urussitl(urushal):
+class uruscygwin(urushal):
     def configure_env(self, cfg, env):
-        super(urussitl, self).configure_env(cfg, env)
+        super(uruscygwin, self).configure_env(cfg, env)
 
         env.DEFINES.update(
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_NONE',
+            CONFIG_SHAL_CORE_CYGWIN = 'SHAL_CORE_CYGWIN',
         )
 
 class urusandroid(urushal):
