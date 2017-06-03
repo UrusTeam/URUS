@@ -27,6 +27,7 @@
 #include "CoreUrusTimers.h"
 #include "CoreUrusScheduler.h"
 #include "CoreUrusUARTDriver.h"
+#include "CoreUrusI2CDevice.h"
 
 #include <stdint.h>
 
