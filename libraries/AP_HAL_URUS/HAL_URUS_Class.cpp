@@ -11,6 +11,7 @@
 const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
 static NSCORE_URUS::CLCoreUrusScheduler& urusScheduler = *NSCORE_URUS::get_scheduler();
 static NSCORE_URUS::CLCoreUrusUARTDriver& urusUartA = *NSCORE_URUS::get_uartDriver();
+static NSCORE_URUS::CLCoreUrusI2CDeviceManager& urusi2cDevicemngr = *NSCORE_URUS::get_I2CDeviceManager();
 
 HAL_URUS::HAL_URUS() :
     AP_HAL::HAL(
@@ -20,7 +21,7 @@ HAL_URUS::HAL_URUS() :
         nullptr,  /* uartD */
         nullptr,  /* uartE */
         nullptr,  /* uartF */
-        nullptr,
+        &urusi2cDevicemngr,
         nullptr, /* spi */
         nullptr, /* analogin */
         nullptr, /* storage */
@@ -30,11 +31,13 @@ HAL_URUS::HAL_URUS() :
         nullptr, /* rcoutput */
         &urusScheduler, /* scheduler */
         nullptr, /* util */
-        nullptr) /* onboard optical flow */
+        nullptr, /* onboard optical flow */
+        nullptr) /* can */
 {
     scheduler = NSCORE_URUS::get_scheduler();
     uartA = NSCORE_URUS::get_uartDriver();
     console = uartA;
+    i2c_mgr = NSCORE_URUS::get_I2CDeviceManager();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
