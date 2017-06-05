@@ -262,20 +262,12 @@ class urushal(Board):
             'm',
         ]
 
-        cfg.check_librt(env)
-
         env.LINKFLAGS += ['-pthread',]
+
         env.AP_LIBRARIES += [
             'AP_HAL_URUS',
             'AP_HAL_URUS/CORE_URUS',
-            'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
-            'AP_HAL_URUS/CORE_URUS/U_CoreAndroid',
         ]
-
-        if sys.platform == 'cygwin':
-            env.LIB += [
-                'winmm',
-            ]
 
     def build(self, bld):
         super(urushal, self).build(bld)
@@ -289,6 +281,21 @@ class uruscygwin(urushal):
             CONFIG_SHAL_CORE_CYGWIN = 'SHAL_CORE_CYGWIN',
         )
 
+        env.LIB += [
+            'winmm',
+        ]
+
+        cfg.check_librt(env)
+
+        env.AP_LIBRARIES += [
+            'AP_HAL',
+            'AP_Scheduler',
+            'AP_Param',
+            'StorageManager',
+            'AP_Math',
+            'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
+        ]
+
 class urusandroid(urushal):
     toolchain = 'arm-linux-androideabi'
 
@@ -298,6 +305,12 @@ class urusandroid(urushal):
         env.DEFINES.update(
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_NONE',
         )
+
+        env.AP_LIBRARIES += [
+            'AP_HAL_URUS',
+            'AP_HAL_URUS/CORE_URUS',
+            'AP_HAL_URUS/CORE_URUS/U_CoreAndroid',
+        ]
 
 class linux(Board):
     def configure_env(self, cfg, env):
