@@ -9,12 +9,16 @@
 #include "CoreUrusScheduler_Cygwin.h"
 #include "CoreUrusUARTDriver_Cygwin.h"
 #include "CoreUrusAnalogIn_Cygwin.h"
+#include "CoreUrusI2CDevice_Cygwin.h"
+#include "CoreUrusSPIDevice_Cygwin.h"
 #include <stdio.h>
 
 static CLCoreUrusTimers_Cygwin coreTimers;
 static CLCoreUrusScheduler_Cygwin coreScheduler;
 static CLCoreUrusUARTDriver_Cygwin coreUARTDriver(0, true);
 static CLCoreUrusAnalogIn_Cygwin coreAnalogIn;
+static CLCoreUrusI2CDeviceManager_Cygwin coreI2C_mgr;
+static CLCoreUrusSPIDeviceManager_Cygwin coreSPI_mgr;
 
 CORE_CYGWIN::CORE_CYGWIN() :
     NSCORE_URUS::CLCORE_URUS(
@@ -41,12 +45,12 @@ NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartDriver()
 
 NSCORE_URUS::CLCoreUrusI2CDeviceManager* NSCORE_URUS::get_I2CDeviceManager()
 {
-    return nullptr;
+    return &coreI2C_mgr;
 }
 
 NSCORE_URUS::CLCoreUrusSPIDeviceManager* NSCORE_URUS::get_SPIDeviceManager()
 {
-    return nullptr;
+    return &coreSPI_mgr;
 }
 
 NSCORE_URUS::CLCoreUrusAnalogSource* NSCORE_URUS::get_AnalogSource()
