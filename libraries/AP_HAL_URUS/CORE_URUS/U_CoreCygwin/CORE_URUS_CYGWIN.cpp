@@ -16,7 +16,8 @@ static CLCoreUrusUARTDriver_Cygwin coreUARTDriver(0, true);
 
 CORE_CYGWIN::CORE_CYGWIN() :
     NSCORE_URUS::CLCORE_URUS(
-        &coreTimers)
+        &coreTimers,
+        &coreScheduler)
 {}
 
 void CORE_CYGWIN::init_core() const
@@ -34,6 +35,16 @@ NSCORE_URUS::CLCoreUrusScheduler* NSCORE_URUS::get_scheduler()
 NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartDriver()
 {
     return &coreUARTDriver;
+}
+
+NSCORE_URUS::CLCoreUrusI2CDeviceManager* NSCORE_URUS::get_I2CDeviceManager()
+{
+    return nullptr;
+}
+
+NSCORE_URUS::CLCoreUrusSPIDeviceManager* NSCORE_URUS::get_SPIDeviceManager()
+{
+    return nullptr;
 }
 
 const NSCORE_URUS::CLCORE_URUS& NSCORE_URUS::get_CORE()
