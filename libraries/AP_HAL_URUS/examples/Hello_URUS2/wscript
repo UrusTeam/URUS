@@ -2,9 +2,16 @@
 # encoding: utf-8
 
 def build(bld):
+    vehicle = bld.path.name
+    bld.ap_stlib(
+        name=vehicle + 'urus',
+        ap_vehicle='UNKNOWN',
+        ap_libraries=[
+        ],
+    )
 
     bld.ap_program(
-        program_name='hello2',
-        program_groups=['bin', 'urusexamples'],
-        use='ap',
+        program_name=vehicle,
+        program_groups=['urusexamples'],
+        use=vehicle + 'urus',
     )

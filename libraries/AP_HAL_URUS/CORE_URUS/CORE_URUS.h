@@ -28,19 +28,20 @@
 #include "CoreUrusScheduler.h"
 #include "CoreUrusUARTDriver.h"
 #include "CoreUrusI2CDevice.h"
+#include "CoreUrusSPIDevice.h"
+#include "CoreUrusSemaphores.h"
 
 #include <stdint.h>
 
 class NSCORE_URUS::CLCORE_URUS {
 public:
 
-    CLCORE_URUS(NSCORE_URUS::CLCoreUrusTimers* _timers)
-    :
-    timers(_timers)
-    {}
+    CLCORE_URUS(NSCORE_URUS::CLCoreUrusTimers* _timers,
+                NSCORE_URUS::CLCoreUrusScheduler* _scheduler);
 
     virtual void init_core() const = 0;
 
     NSCORE_URUS::CLCoreUrusTimers*  timers;
+    NSCORE_URUS::CLCoreUrusScheduler* scheduler;
 };
 

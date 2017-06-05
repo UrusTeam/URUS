@@ -8,28 +8,25 @@
 #include "HAL_URUS_Class.h"
 #include "CORE_URUS/CORE_URUS.h"
 
-const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
-static NSCORE_URUS::CLCoreUrusScheduler& urusScheduler = *NSCORE_URUS::get_scheduler();
-static NSCORE_URUS::CLCoreUrusUARTDriver& urusUartA = *NSCORE_URUS::get_uartDriver();
-static NSCORE_URUS::CLCoreUrusI2CDeviceManager& urusi2cDevicemngr = *NSCORE_URUS::get_I2CDeviceManager();
+static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
 
 HAL_URUS::HAL_URUS() :
     AP_HAL::HAL(
-        &urusUartA,  /* uartA */
+        nullptr,  /* uartA */
         nullptr,  /* uartB */
         nullptr,  /* uartC */
         nullptr,  /* uartD */
         nullptr,  /* uartE */
         nullptr,  /* uartF */
-        &urusi2cDevicemngr,
+        nullptr,
         nullptr, /* spi */
         nullptr, /* analogin */
         nullptr, /* storage */
-        &urusUartA, /* console */
+        nullptr, /* console */
         nullptr, /* gpio */
         nullptr,  /* rcinput */
         nullptr, /* rcoutput */
-        &urusScheduler, /* scheduler */
+        nullptr, /* scheduler */
         nullptr, /* util */
         nullptr, /* onboard optical flow */
         nullptr) /* can */
@@ -38,6 +35,7 @@ HAL_URUS::HAL_URUS() :
     uartA = NSCORE_URUS::get_uartDriver();
     console = uartA;
     i2c_mgr = NSCORE_URUS::get_I2CDeviceManager();
+    spi = NSCORE_URUS::get_SPIDeviceManager();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
