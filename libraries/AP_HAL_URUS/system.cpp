@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
+static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
 
 namespace AP_HAL {
 
