@@ -13,11 +13,15 @@ namespace NSCORE_URUS {
     class CLCoreUrusSPIDevice;
     class CLCoreUrusSPIDeviceManager;
     class CLCoreUrusSemaphore;
+    class CLCoreUrusAnalogSource;
+    class CLCoreUrusAnalogIn;
 
     const CLCORE_URUS& get_CORE();
     CLCoreUrusScheduler* get_scheduler();
     CLCoreUrusUARTDriver* get_uartDriver();
     CLCoreUrusI2CDeviceManager* get_I2CDeviceManager();
     CLCoreUrusSPIDeviceManager* get_SPIDeviceManager();
+    CLCoreUrusAnalogSource* get_AnalogSource();
+    CLCoreUrusAnalogIn* get_AnalogIn();
 
 }

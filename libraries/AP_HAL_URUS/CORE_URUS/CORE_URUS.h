@@ -30,6 +30,7 @@
 #include "CoreUrusI2CDevice.h"
 #include "CoreUrusSPIDevice.h"
 #include "CoreUrusSemaphores.h"
+#include "CoreUrusAnalogIn.h"
 
 #include <stdint.h>
 
