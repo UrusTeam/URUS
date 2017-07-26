@@ -37,6 +37,7 @@ HAL_URUS::HAL_URUS() :
     i2c_mgr = NSCORE_URUS::get_I2CDeviceManager();
     spi = NSCORE_URUS::get_SPIDeviceManager();
     analogin = NSCORE_URUS::get_AnalogIn();
+    util = NSCORE_URUS::get_Util();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
