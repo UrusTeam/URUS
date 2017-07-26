@@ -15,6 +15,7 @@ namespace NSCORE_URUS {
     class CLCoreUrusSemaphore;
     class CLCoreUrusAnalogSource;
     class CLCoreUrusAnalogIn;
+    class CLCoreUrusUtil;
 
     const CLCORE_URUS& get_CORE();
     CLCoreUrusScheduler* get_scheduler();
@@ -23,5 +24,6 @@ namespace NSCORE_URUS {
     CLCoreUrusSPIDeviceManager* get_SPIDeviceManager();
     CLCoreUrusAnalogSource* get_AnalogSource();
     CLCoreUrusAnalogIn* get_AnalogIn();
+    CLCoreUrusUtil* get_Util();
 
 }
