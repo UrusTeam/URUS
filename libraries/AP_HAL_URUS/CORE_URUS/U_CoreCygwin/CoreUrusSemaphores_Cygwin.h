@@ -11,7 +11,11 @@
 
 class CLCoreUrusSemaphore_Cygwin : public  NSCORE_URUS::CLCoreUrusSemaphore {
 public:
-    CLCoreUrusSemaphore_Cygwin() : _taken(false) {}
+    CLCoreUrusSemaphore_Cygwin() :
+        NSCORE_URUS::CLCoreUrusSemaphore(),
+        _taken(false)
+    {}
+
     bool give();
     bool take(uint32_t timeout_ms);
     bool take_nonblocking();

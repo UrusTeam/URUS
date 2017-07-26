@@ -26,6 +26,7 @@ uint8_t CLCoreUrusScheduler_Cygwin::_num_io_procs = 0;
 bool CLCoreUrusScheduler_Cygwin::_in_io_proc = false;
 
 CLCoreUrusScheduler_Cygwin::CLCoreUrusScheduler_Cygwin() :
+    NSCORE_URUS::CLCoreUrusScheduler(),
     _stopped_clock_usec(0)
 {
 }

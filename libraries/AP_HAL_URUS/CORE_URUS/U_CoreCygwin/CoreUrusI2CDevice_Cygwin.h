@@ -9,7 +9,8 @@
 
 class CLCoreUrusI2CDevice_Cygwin : public NSCORE_URUS::CLCoreUrusI2CDevice {
 public:
-    CLCoreUrusI2CDevice_Cygwin()
+    CLCoreUrusI2CDevice_Cygwin() :
+        NSCORE_URUS::CLCoreUrusI2CDevice()
     {
     }
 
@@ -63,7 +64,9 @@ public:
 
 class CLCoreUrusI2CDeviceManager_Cygwin : public NSCORE_URUS::CLCoreUrusI2CDeviceManager {
 public:
-    CLCoreUrusI2CDeviceManager_Cygwin() { }
+    CLCoreUrusI2CDeviceManager_Cygwin() :
+        NSCORE_URUS::CLCoreUrusI2CDeviceManager()
+    { }
 
     /* AP_HAL::I2CDeviceManager implementation */
     AP_HAL::OwnPtr<AP_HAL::I2CDevice> get_device(uint8_t bus, uint8_t address) 
