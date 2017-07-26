@@ -3,9 +3,9 @@
 //
 
 #include <AP_HAL/AP_HAL.h>
-//#include <AP_InertialSensor/AP_InertialSensor.h>
+#include <AP_InertialSensor/AP_InertialSensor.h>
 #include <AP_Scheduler/AP_Scheduler.h>
-//#include <AP_BoardConfig/AP_BoardConfig.h>
+#include <AP_BoardConfig/AP_BoardConfig.h>
 
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
@@ -16,7 +16,7 @@ public:
 
 private:
 
-    //AP_InertialSensor ins;
+    AP_InertialSensor ins;
     AP_Scheduler scheduler;
 
     uint32_t ins_counter;
@@ -46,19 +46,19 @@ const AP_Scheduler::Task SchedTest::scheduler_tasks[] = {
 void SchedTest::setup(void)
 {
 
-    //AP_BoardConfig{}.init();
+    AP_BoardConfig{}.init();
 
-    //ins.init(scheduler.get_loop_rate_hz());
+    ins.init(scheduler.get_loop_rate_hz());
 
     // initialise the scheduler
     scheduler.init(&scheduler_tasks[0], ARRAY_SIZE(scheduler_tasks));
+
 }
 
 void SchedTest::loop(void)
 {
     // wait for an INS sample
-    //ins.wait_for_sample();
-    hal.scheduler->delay(20);
+    ins.wait_for_sample();
 
     // tell the scheduler one tick has passed
     scheduler.tick();
@@ -73,7 +73,7 @@ void SchedTest::loop(void)
 void SchedTest::ins_update(void)
 {
     ins_counter++;
-    //ins.update();
+    ins.update();
 }
 
 /*
