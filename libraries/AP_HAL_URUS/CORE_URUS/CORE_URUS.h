@@ -31,6 +31,7 @@
 #include "CoreUrusSPIDevice.h"
 #include "CoreUrusSemaphores.h"
 #include "CoreUrusAnalogIn.h"
+#include "CoreUrusUtil.h"
 
 #include <stdint.h>
 
