@@ -15,7 +15,9 @@
 class CLCoreUrusUARTDriver_Cygwin : public NSCORE_URUS::CLCoreUrusUARTDriver {
 public:
 
-    CLCoreUrusUARTDriver_Cygwin(const uint8_t portNumber, const bool console) {
+    CLCoreUrusUARTDriver_Cygwin(const uint8_t portNumber, const bool console) :
+        NSCORE_URUS::CLCoreUrusUARTDriver()
+    {
         _portNumber = portNumber;
         _console = console;
         _fd = -1;
