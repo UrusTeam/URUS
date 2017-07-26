@@ -19,6 +19,7 @@ const uint8_t CLCoreUrusSPIDeviceManager_Cygwin::_n_device_desc = URUS_SPI_DEVIC
 
 CLCoreUrusSPIDevice_Cygwin::CLCoreUrusSPIDevice_Cygwin(SPIBus &_bus, SPIDesc &_device_desc)
     :
+    NSCORE_URUS::CLCoreUrusSPIDevice(),
     bus(_bus),
     device_desc(_device_desc)
 {
