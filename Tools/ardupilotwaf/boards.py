@@ -323,6 +323,9 @@ class uruscygwin(urushal):
             'AP_Rally',
             'AP_Beacon',
             'AP_Declination',
+            'AP_Proximity',
+            'AP_ServoRelayEvents',
+            'AP_Relay',
             'AP_HAL_URUS/dummy_libs',
             'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
         ]
