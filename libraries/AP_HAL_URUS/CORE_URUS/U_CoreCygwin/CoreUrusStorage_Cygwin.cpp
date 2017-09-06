@@ -1,4 +1,4 @@
-
+#include <AP_HAL_URUS/AP_HAL_URUS.h>
 #if CONFIG_HAL_BOARD == HAL_BOARD_URUS
 
 #include <assert.h>

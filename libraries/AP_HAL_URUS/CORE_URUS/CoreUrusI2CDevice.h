@@ -1,6 +1,6 @@
 #pragma once
 
-#include <AP_HAL/HAL.h>
+#include <AP_HAL_URUS/AP_HAL_URUS.h>
 #include <AP_HAL/I2CDevice.h>
 
 #include "CORE_URUS_NAMESPACE.h"
