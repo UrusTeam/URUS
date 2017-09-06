@@ -14,7 +14,7 @@
  */
 #pragma once
 
-#include <AP_HAL/HAL.h>
+#include <AP_HAL_URUS/AP_HAL_URUS.h>
 #if (CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN)
 
 #include <inttypes.h>
