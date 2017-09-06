@@ -326,6 +326,8 @@ class uruscygwin(urushal):
             'AP_Proximity',
             'AP_ServoRelayEvents',
             'AP_Relay',
+            'AP_AdvancedFailsafe',
+            'AP_Camera',
             'AP_HAL_URUS/dummy_libs',
             'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
         ]
