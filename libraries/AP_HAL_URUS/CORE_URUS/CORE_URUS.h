@@ -32,6 +32,7 @@
 #include "CoreUrusSemaphores.h"
 #include "CoreUrusAnalogIn.h"
 #include "CoreUrusUtil.h"
+#include "CoreUrusStorage.h"
 
 #include <stdint.h>
 
