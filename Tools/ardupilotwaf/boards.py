@@ -278,7 +278,7 @@ class uruscygwin(urushal):
 
         env.DEFINES.update(
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_NONE',
-            CONFIG_SHAL_CORE_CYGWIN = 'SHAL_CORE_CYGWIN',
+            CONFIG_SHAL_CORE = 'SHAL_CORE_CYGWIN',
         )
 
         env.LIB += [

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <AP_HAL/AP_HAL.h>
-#if defined(__CYGWIN__) && (CONFIG_SHAL_CORE_CYGWIN == SHAL_CORE_CYGWIN)
+#if (CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN)
 
 #include <stdint.h>
 #include <stdarg.h>
