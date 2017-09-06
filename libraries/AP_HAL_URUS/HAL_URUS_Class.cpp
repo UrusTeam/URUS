@@ -38,6 +38,7 @@ HAL_URUS::HAL_URUS() :
     spi = NSCORE_URUS::get_SPIDeviceManager();
     analogin = NSCORE_URUS::get_AnalogIn();
     util = NSCORE_URUS::get_Util();
+    storage = NSCORE_URUS::get_Storage();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const

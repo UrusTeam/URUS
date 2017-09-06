@@ -12,6 +12,7 @@
 #include "CoreUrusI2CDevice_Cygwin.h"
 #include "CoreUrusSPIDevice_Cygwin.h"
 #include "CoreUrusUtil_Cygwin.h"
+#include "CoreUrusStorage_Cygwin.h"
 #include <stdio.h>
 
 static CLCoreUrusTimers_Cygwin coreTimers;
@@ -21,6 +22,7 @@ static CLCoreUrusAnalogIn_Cygwin coreAnalogIn;
 static CLCoreUrusI2CDeviceManager_Cygwin coreI2C_mgr;
 static CLCoreUrusSPIDeviceManager_Cygwin coreSPI_mgr;
 static CLCoreUrusUtil_Cygwin coreUtil;
+static CLCoreUrusEEStorage_Cygwin coreStorage;
 
 CORE_CYGWIN::CORE_CYGWIN() :
     NSCORE_URUS::CLCORE_URUS(
@@ -68,6 +70,11 @@ NSCORE_URUS::CLCoreUrusAnalogIn* NSCORE_URUS::get_AnalogIn()
 NSCORE_URUS::CLCoreUrusUtil* NSCORE_URUS::get_Util()
 {
     return &coreUtil;
+}
+
+NSCORE_URUS::CLCoreUrusEEStorage* NSCORE_URUS::get_Storage()
+{
+    return &coreStorage;
 }
 
 const NSCORE_URUS::CLCORE_URUS& NSCORE_URUS::get_CORE()
