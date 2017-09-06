@@ -1,5 +1,5 @@
 #pragma once
-
+#include <AP_HAL_URUS/AP_HAL_URUS.h>
 #include <stdint.h>
 
 #include <AP_HAL/AP_HAL.h>
