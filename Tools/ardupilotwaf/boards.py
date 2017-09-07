@@ -281,9 +281,10 @@ class uruscygwin(urushal):
             CONFIG_SHAL_CORE = 'SHAL_CORE_CYGWIN',
         )
 
-        env.LIB += [
-            'winmm',
-        ]
+        if sys.platform == 'cygwin':
+            env.LIB += [
+                'winmm',
+            ]
 
         cfg.check_librt(env)
 
