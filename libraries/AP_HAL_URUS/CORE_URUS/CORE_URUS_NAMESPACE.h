@@ -17,6 +17,8 @@ namespace NSCORE_URUS {
     class CLCoreUrusAnalogIn;
     class CLCoreUrusUtil;
     class CLCoreUrusEEStorage;
+    class CLCoreUrusGPIO;
+    class CLCoreUrusDigitalSource;
 
     const CLCORE_URUS& get_CORE();
     CLCoreUrusScheduler* get_scheduler();
@@ -27,5 +29,6 @@ namespace NSCORE_URUS {
     CLCoreUrusAnalogIn* get_AnalogIn();
     CLCoreUrusUtil* get_Util();
     CLCoreUrusEEStorage* get_Storage();
+    CLCoreUrusGPIO* get_GPIO();
 
 }

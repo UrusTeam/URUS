@@ -39,6 +39,7 @@ HAL_URUS::HAL_URUS() :
     analogin = NSCORE_URUS::get_AnalogIn();
     util = NSCORE_URUS::get_Util();
     storage = NSCORE_URUS::get_Storage();
+    gpio = NSCORE_URUS::get_GPIO();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
