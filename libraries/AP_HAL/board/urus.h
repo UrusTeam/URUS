@@ -18,5 +18,6 @@
 #define SHAL_CORE_ANDROID   2
 
 #if CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN
-#define HAL_OS_POSIX_IO 1
+#define HAL_OS_POSIX_IO         1
+#define HAL_HAVE_BOARD_VOLTAGE  1
 #endif
