@@ -75,5 +75,11 @@ private:
 
     bool _initialized;
     uint64_t _stopped_clock_usec;
+
+    uint64_t start;
+    uint64_t now_micros;
+    uint16_t dt_micros;
+    uint16_t centinel_micros;
+    uint16_t ms_cb;
 };
 #endif // __CYGWIN__
