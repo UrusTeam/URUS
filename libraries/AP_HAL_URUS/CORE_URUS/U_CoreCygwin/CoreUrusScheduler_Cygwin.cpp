@@ -46,10 +46,27 @@ void CLCoreUrusScheduler_Cygwin::delay_microseconds(uint16_t usec)
 
 void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
 {
-    while (ms > 0) {
-        delay_microseconds(1000);
-        ms--;
-        if (_min_delay_cb_ms <= ms) {
+    start = AP_HAL::millis64();
+    now_micros = start;
+    dt_micros = 0;
+    centinel_micros = 1000;
+    ms_cb = ms;
+
+    while ((AP_HAL::millis64() - start) <= ms) {
+        dt_micros = AP_HAL::micros64() - now_micros;
+        now_micros = AP_HAL::micros64();
+        delay_microseconds(centinel_micros);
+
+        if (dt_micros >= centinel_micros) {
+            centinel_micros = dt_micros - (dt_micros - centinel_micros);
+        }
+
+        if (dt_micros <= centinel_micros) {
+            centinel_micros = dt_micros + (centinel_micros - dt_micros);
+        }
+
+        ms_cb--;
+        if (_min_delay_cb_ms <= ms_cb) {
             if (_delay_cb) {
                 _delay_cb();
             }
