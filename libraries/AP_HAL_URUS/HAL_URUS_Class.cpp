@@ -32,14 +32,20 @@ HAL_URUS::HAL_URUS() :
         nullptr) /* can */
 {
     scheduler = NSCORE_URUS::get_scheduler();
-    uartA = NSCORE_URUS::get_uartDriver();
+    uartA = NSCORE_URUS::get_uartA_Driver();
     console = uartA;
+    uartB = NSCORE_URUS::get_uartB_Driver();
+    uartC = NSCORE_URUS::get_uartC_Driver();
+    uartD = NSCORE_URUS::get_uartD_Driver();
+    uartE = NSCORE_URUS::get_uartE_Driver();
+    uartF = NSCORE_URUS::get_uartF_Driver();
     i2c_mgr = NSCORE_URUS::get_I2CDeviceManager();
     spi = NSCORE_URUS::get_SPIDeviceManager();
     analogin = NSCORE_URUS::get_AnalogIn();
     util = NSCORE_URUS::get_Util();
     storage = NSCORE_URUS::get_Storage();
     gpio = NSCORE_URUS::get_GPIO();
+    rcin = NSCORE_URUS::get_RCInput();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
@@ -50,6 +56,8 @@ void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
 
     scheduler->init();
     uartA->begin(115200);
+
+    rcin->init();
 
     callbacks->setup();
 

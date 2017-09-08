@@ -34,6 +34,7 @@
 #include "CoreUrusUtil.h"
 #include "CoreUrusStorage.h"
 #include "CoreUrusGPIO.h"
+#include "CoreUrusRCInput.h"
 
 #include <stdint.h>
 

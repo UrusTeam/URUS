@@ -14,17 +14,24 @@
 #include "CoreUrusUtil_Cygwin.h"
 #include "CoreUrusStorage_Cygwin.h"
 #include "CoreUrusGPIO_Cygwin.h"
+#include "CoreUrusRCInput_Cygwin.h"
 #include <stdio.h>
 
 static CLCoreUrusTimers_Cygwin coreTimers;
 static CLCoreUrusScheduler_Cygwin coreScheduler;
-static CLCoreUrusUARTDriver_Cygwin coreUARTDriver(0, true);
+static CLCoreUrusUARTDriver_Cygwin coreUARTA_Driver(0, true);
+static CLCoreUrusUARTDriver_Cygwin coreUARTB_Driver(1, false);
+static CLCoreUrusUARTDriver_Cygwin coreUARTC_Driver(2, false);
+static CLCoreUrusUARTDriver_Cygwin coreUARTD_Driver(3, false);
+static CLCoreUrusUARTDriver_Cygwin coreUARTE_Driver(4, false);
+static CLCoreUrusUARTDriver_Cygwin coreUARTF_Driver(5, false);
 static CLCoreUrusAnalogIn_Cygwin coreAnalogIn;
 static CLCoreUrusI2CDeviceManager_Cygwin coreI2C_mgr;
 static CLCoreUrusSPIDeviceManager_Cygwin coreSPI_mgr;
 static CLCoreUrusUtil_Cygwin coreUtil;
 static CLCoreUrusEEStorage_Cygwin coreStorage;
 static CLCoreUrusGPIO_Cygwin coreGPIO;
+static CLCoreUrusRCInput_Cygwin coreRCInput;
 
 CORE_CYGWIN::CORE_CYGWIN() :
     NSCORE_URUS::CLCORE_URUS(
@@ -44,9 +51,34 @@ NSCORE_URUS::CLCoreUrusScheduler* NSCORE_URUS::get_scheduler()
     return &coreScheduler;
 }
 
-NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartDriver()
+NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartA_Driver()
 {
-    return &coreUARTDriver;
+    return &coreUARTA_Driver;
+}
+
+NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartB_Driver()
+{
+    return &coreUARTB_Driver;
+}
+
+NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartC_Driver()
+{
+    return &coreUARTC_Driver;
+}
+
+NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartD_Driver()
+{
+    return &coreUARTD_Driver;
+}
+
+NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartE_Driver()
+{
+    return &coreUARTE_Driver;
+}
+
+NSCORE_URUS::CLCoreUrusUARTDriver* NSCORE_URUS::get_uartF_Driver()
+{
+    return &coreUARTF_Driver;
 }
 
 NSCORE_URUS::CLCoreUrusI2CDeviceManager* NSCORE_URUS::get_I2CDeviceManager()
@@ -82,6 +114,11 @@ NSCORE_URUS::CLCoreUrusEEStorage* NSCORE_URUS::get_Storage()
 NSCORE_URUS::CLCoreUrusGPIO* NSCORE_URUS::get_GPIO()
 {
     return &coreGPIO;
+}
+
+NSCORE_URUS::CLCoreUrusRCInput* NSCORE_URUS::get_RCInput()
+{
+    return &coreRCInput;
 }
 
 const NSCORE_URUS::CLCORE_URUS& NSCORE_URUS::get_CORE()
