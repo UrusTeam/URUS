@@ -40,8 +40,8 @@ void CLCoreUrusScheduler_Cygwin::init()
 
 void CLCoreUrusScheduler_Cygwin::delay_microseconds(uint16_t usec)
 {
-    uint64_t start = AP_HAL::micros64();
-    while ((AP_HAL::micros64() - start) < usec);
+    uint64_t start_micros = AP_HAL::micros64();
+    while ((AP_HAL::micros64() - start_micros) < usec);
 }
 
 void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
