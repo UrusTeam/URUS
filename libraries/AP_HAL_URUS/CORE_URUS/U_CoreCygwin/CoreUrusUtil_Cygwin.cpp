@@ -10,5 +10,10 @@ CLCoreUrusUtil_Cygwin::CLCoreUrusUtil_Cygwin() :
     NSCORE_URUS::CLCoreUrusUtil()
 {}
 
+uint32_t CLCoreUrusUtil_Cygwin::available_memory(void)
+{
+    return 128*1024;
+}
+
 
 #endif // __CYGWIN__
