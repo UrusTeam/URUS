@@ -15,11 +15,12 @@
 #include "CoreUrusStorage_Cygwin.h"
 #include "CoreUrusGPIO_Cygwin.h"
 #include "CoreUrusRCInput_Cygwin.h"
+#include "CoreUrusRCOutput_Cygwin.h"
 #include <stdio.h>
 
 static CLCoreUrusTimers_Cygwin coreTimers;
 static CLCoreUrusScheduler_Cygwin coreScheduler;
-static CLCoreUrusUARTDriver_Cygwin coreUARTA_Driver(0, true);
+static CLCoreUrusUARTDriver_Cygwin coreUARTA_Driver(0, false);
 static CLCoreUrusUARTDriver_Cygwin coreUARTB_Driver(1, false);
 static CLCoreUrusUARTDriver_Cygwin coreUARTC_Driver(2, false);
 static CLCoreUrusUARTDriver_Cygwin coreUARTD_Driver(3, false);
@@ -32,6 +33,7 @@ static CLCoreUrusUtil_Cygwin coreUtil;
 static CLCoreUrusEEStorage_Cygwin coreStorage;
 static CLCoreUrusGPIO_Cygwin coreGPIO;
 static CLCoreUrusRCInput_Cygwin coreRCInput;
+static CLCoreUrusRCOutput_Cygwin coreRCOutput;
 
 CORE_CYGWIN::CORE_CYGWIN() :
     NSCORE_URUS::CLCORE_URUS(
@@ -119,6 +121,11 @@ NSCORE_URUS::CLCoreUrusGPIO* NSCORE_URUS::get_GPIO()
 NSCORE_URUS::CLCoreUrusRCInput* NSCORE_URUS::get_RCInput()
 {
     return &coreRCInput;
+}
+
+NSCORE_URUS::CLCoreUrusRCOutput* NSCORE_URUS::get_RCOutput()
+{
+    return &coreRCOutput;
 }
 
 const NSCORE_URUS::CLCORE_URUS& NSCORE_URUS::get_CORE()
