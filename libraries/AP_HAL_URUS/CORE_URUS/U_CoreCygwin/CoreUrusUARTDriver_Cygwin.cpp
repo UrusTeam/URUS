@@ -45,8 +45,6 @@
 
 extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
 
-bool CLCoreUrusUARTDriver_Cygwin::_console;
-
 /* CLCoreUrusUARTDriver_Cygwin method implementations */
 
 void CLCoreUrusUARTDriver_Cygwin::begin(uint32_t baud, uint16_t rxSpace, uint16_t txSpace)
@@ -58,6 +56,7 @@ void CLCoreUrusUARTDriver_Cygwin::begin(uint32_t baud, uint16_t rxSpace, uint16_
          tcpclient:192.168.2.15:5762
          uart:/dev/ttyUSB0:57600
      */
+
     char *saveptr = nullptr;
     char *s = strdup(path);
     char *devtype = strtok_r(s, ":", &saveptr);
@@ -196,7 +195,7 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_connection(uint16_t port, bool wait
         if (port > 1000) {
             sockaddr.sin_port = htons(port);
         } else {
-            sockaddr.sin_port = htons(_base_port + port);
+            sockaddr.sin_port = htons(_base_port + port + _portNumber);
         }
         sockaddr.sin_family = AF_INET;
 

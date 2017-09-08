@@ -16,13 +16,12 @@ class CLCoreUrusUARTDriver_Cygwin : public NSCORE_URUS::CLCoreUrusUARTDriver {
 public:
 
     CLCoreUrusUARTDriver_Cygwin(const uint8_t portNumber, const bool console) :
-        NSCORE_URUS::CLCoreUrusUARTDriver()
-    {
-        _portNumber = portNumber;
-        _console = console;
-        _fd = -1;
-        _listen_fd = -1;
-    }
+        NSCORE_URUS::CLCoreUrusUARTDriver(),
+        _portNumber(portNumber),
+        _console(console),
+        _fd(-1),
+        _listen_fd(-1)
+    {}
 
     static CLCoreUrusUARTDriver *from(AP_HAL::UARTDriver *uart) {
         return static_cast<CLCoreUrusUARTDriver_Cygwin*>(uart);
@@ -75,7 +74,7 @@ private:
     bool _use_send_recv = false;
     int _listen_fd;  // socket we are listening on
     int _serial_port;
-    static bool _console;
+    bool _console;
     bool _nonblocking_writes;
     ByteBuffer _readbuffer{16384};
     ByteBuffer _writebuffer{16384};
@@ -96,7 +95,7 @@ private:
     bool _use_rtscts;
 
     /* default configuration for uart driver */
-    const char *path = "tcp:0:wait";
+    const char *path = "tcp:0:nowait";
     uint16_t _base_port = 5760;
 
     /*  Is scheduling using and active?
