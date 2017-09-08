@@ -19,10 +19,16 @@ namespace NSCORE_URUS {
     class CLCoreUrusEEStorage;
     class CLCoreUrusGPIO;
     class CLCoreUrusDigitalSource;
+    class CLCoreUrusRCInput;
 
     const CLCORE_URUS& get_CORE();
     CLCoreUrusScheduler* get_scheduler();
-    CLCoreUrusUARTDriver* get_uartDriver();
+    CLCoreUrusUARTDriver* get_uartA_Driver();
+    CLCoreUrusUARTDriver* get_uartB_Driver();
+    CLCoreUrusUARTDriver* get_uartC_Driver();
+    CLCoreUrusUARTDriver* get_uartD_Driver();
+    CLCoreUrusUARTDriver* get_uartE_Driver();
+    CLCoreUrusUARTDriver* get_uartF_Driver();
     CLCoreUrusI2CDeviceManager* get_I2CDeviceManager();
     CLCoreUrusSPIDeviceManager* get_SPIDeviceManager();
     CLCoreUrusAnalogSource* get_AnalogSource();
@@ -30,5 +36,6 @@ namespace NSCORE_URUS {
     CLCoreUrusUtil* get_Util();
     CLCoreUrusEEStorage* get_Storage();
     CLCoreUrusGPIO* get_GPIO();
+    CLCoreUrusRCInput* get_RCInput();
 
 }
