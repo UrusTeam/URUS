@@ -46,6 +46,7 @@ HAL_URUS::HAL_URUS() :
     storage = NSCORE_URUS::get_Storage();
     gpio = NSCORE_URUS::get_GPIO();
     rcin = NSCORE_URUS::get_RCInput();
+    rcout = NSCORE_URUS::get_RCOutput();
 }
 
 void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
@@ -58,7 +59,10 @@ void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
     uartA->begin(115200);
 
     rcin->init();
+    rcout->init();
 
+    analogin->init();
+    
     callbacks->setup();
 
     for (;;) {
