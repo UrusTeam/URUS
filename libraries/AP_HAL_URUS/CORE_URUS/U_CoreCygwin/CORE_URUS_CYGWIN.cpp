@@ -20,7 +20,7 @@
 
 static CLCoreUrusTimers_Cygwin coreTimers;
 static CLCoreUrusScheduler_Cygwin coreScheduler;
-static CLCoreUrusUARTDriver_Cygwin coreUARTA_Driver(0, false);
+static CLCoreUrusUARTDriver_Cygwin coreUARTA_Driver(0, true);
 static CLCoreUrusUARTDriver_Cygwin coreUARTB_Driver(1, false);
 static CLCoreUrusUARTDriver_Cygwin coreUARTC_Driver(2, false);
 static CLCoreUrusUARTDriver_Cygwin coreUARTD_Driver(3, false);
