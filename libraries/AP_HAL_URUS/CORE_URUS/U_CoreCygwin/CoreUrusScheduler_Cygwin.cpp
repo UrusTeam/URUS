@@ -10,6 +10,9 @@
 #include <sys/time.h>
 #include <fenv.h>
 #include <stdio.h>
+#include <pthread.h>
+#include <time.h>
+#include <errno.h>
 
 extern const AP_HAL::HAL& hal;
 
@@ -25,14 +28,87 @@ AP_HAL::MemberProc CLCoreUrusScheduler_Cygwin::_io_proc[URUS_SCHEDULER_MAX_TIMER
 uint8_t CLCoreUrusScheduler_Cygwin::_num_io_procs = 0;
 bool CLCoreUrusScheduler_Cygwin::_in_io_proc = false;
 
+bool CLCoreUrusScheduler_Cygwin::_isr_timer_running = false;
+bool CLCoreUrusScheduler_Cygwin::_isr_sched_running = false;
+
 CLCoreUrusScheduler_Cygwin::CLCoreUrusScheduler_Cygwin() :
     NSCORE_URUS::CLCoreUrusScheduler(),
     _stopped_clock_usec(0)
 {
 }
 
+void *CLCoreUrusScheduler_Cygwin::_fire_isr_timer(void *arg)
+{
+
+    if (_isr_timer_running) {
+        return NULL;
+    }
+
+    _isr_timer_running = true;
+
+    while(1) {
+        /* this make 2KHZ granulation for
+         * shal isr timer with posix thread
+         */
+        hal.scheduler->delay_microseconds(500);
+        fire_isr_timer();
+    }
+
+    _isr_timer_running = false;
+
+    return NULL;
+}
+
+void *CLCoreUrusScheduler_Cygwin::_fire_isr_sched(void *arg)
+{
+
+    if (_isr_sched_running) {
+        return NULL;
+    }
+
+    _isr_sched_running = true;
+
+    while(1) {
+        /* this make 5KHZ granulation for
+         * shal isr timer with posix thread
+         */
+        hal.scheduler->delay_microseconds(200);
+        fire_isr_sched();
+    }
+    _isr_sched_running = false;
+
+    return NULL;
+}
+
 void CLCoreUrusScheduler_Cygwin::init()
 {
+
+    clk_core_timers.clk_per_sec = CLOCKS_PER_SEC;
+    clk_core_timers.dial = 0.05f;
+    start_sched();
+
+    /* See CLCoreUrusScheduler::fire_isr_timer on the TOP SHAL. */
+    pthread_t isr_timer_thread;
+    pthread_attr_t thread_attr_timer;
+
+    pthread_attr_init(&thread_attr_timer);
+    pthread_attr_setstacksize(&thread_attr_timer, 2048);
+
+    pthread_attr_setschedpolicy(&thread_attr_timer, SCHED_FIFO);
+
+    pthread_create(&isr_timer_thread, &thread_attr_timer, &_fire_isr_timer, this);
+
+    /* See CLCoreUrusScheduler::fire_isr_sched on the TOP SHAL. */
+    pthread_t isr_sched_thread;
+    pthread_attr_t thread_attr_sched;
+
+    pthread_attr_init(&thread_attr_sched);
+    pthread_attr_setstacksize(&thread_attr_sched, 2048);
+
+    pthread_attr_setschedpolicy(&thread_attr_sched, SCHED_FIFO);
+
+    pthread_create(&isr_sched_thread, &thread_attr_sched, &_fire_isr_sched, this);
+
 #if 0
     printf("Cygwin Scheduler ok!\n");
 #endif
@@ -220,12 +296,11 @@ void CLCoreUrusScheduler_Cygwin::_run_io_procs(bool called_from_isr)
     _in_io_proc = false;
 
     CLCoreUrusUARTDriver_Cygwin::from(hal.uartA)->_timer_tick();
-/*
     CLCoreUrusUARTDriver_Cygwin::from(hal.uartB)->_timer_tick();
     CLCoreUrusUARTDriver_Cygwin::from(hal.uartC)->_timer_tick();
     CLCoreUrusUARTDriver_Cygwin::from(hal.uartD)->_timer_tick();
     CLCoreUrusUARTDriver_Cygwin::from(hal.uartE)->_timer_tick();
-*/
+
 }
 
 /*
