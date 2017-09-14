@@ -115,6 +115,7 @@ int16_t CLCoreUrusUARTDriver_Cygwin::read(void)
     if (available() <= 0) {
         return -1;
     }
+
     uint8_t c;
     _readbuffer.read(&c, 1);
     return c;
@@ -177,8 +178,8 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_connection(uint16_t port, bool wait
         _use_send_recv = false;
         _listen_fd = -1;
         _fd = 1;
-        _writebuffer.set_size(5);
-        _readbuffer.set_size(5);
+        _writebuffer.set_size(1024);
+        _readbuffer.set_size(1024);
         return;
     }
 
