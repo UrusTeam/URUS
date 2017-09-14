@@ -7,20 +7,22 @@
 #include "../CoreUrusSemaphores.h"
 
 #include "CoreUrusSemaphores_Cygwin.h"
-#include <inttypes.h>
+#include <stdint.h>
+#include <pthread.h>
 
 class CLCoreUrusSemaphore_Cygwin : public  NSCORE_URUS::CLCoreUrusSemaphore {
 public:
     CLCoreUrusSemaphore_Cygwin() :
-        NSCORE_URUS::CLCoreUrusSemaphore(),
-        _taken(false)
-    {}
+        NSCORE_URUS::CLCoreUrusSemaphore()
+    {
+        pthread_mutex_init(&_lock, nullptr);
+    }
 
     bool give();
     bool take(uint32_t timeout_ms);
     bool take_nonblocking();
 private:
-    bool _taken;
+    pthread_mutex_t _lock;
 };
 
 #endif // __CYGWIN__
