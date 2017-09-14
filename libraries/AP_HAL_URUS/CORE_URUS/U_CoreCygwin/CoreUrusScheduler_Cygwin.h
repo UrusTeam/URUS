@@ -8,6 +8,7 @@
 #include "../CoreUrusScheduler.h"
 
 #define URUS_SCHEDULER_MAX_TIMER_PROCS 4
+#include  <stdio.h>
 
 /* Scheduler implementation: */
 class CLCoreUrusScheduler_Cygwin : public NSCORE_URUS::CLCoreUrusScheduler {
@@ -19,7 +20,7 @@ public:
 
     /* AP_HAL::Scheduler methods */
 
-    void init();
+    void init() override;
     void delay(uint16_t ms);
     void delay_microseconds(uint16_t us);
     void register_delay_callback(AP_HAL::Proc, uint16_t min_time_ms);
@@ -46,7 +47,7 @@ public:
     }
     void sitl_end_atomic();
 
-    static void timer_event() {
+    void timer_event() {
         _run_timer_procs(true);
         _run_io_procs(true);
     }
@@ -62,6 +63,9 @@ private:
     static void _run_timer_procs(bool called_from_isr);
     static void _run_io_procs(bool called_from_isr);
 
+    static void *_fire_isr_timer(void *arg);
+    static void *_fire_isr_sched(void *arg);
+
     static volatile bool _timer_suspended;
     static volatile bool _timer_event_missed;
     static AP_HAL::MemberProc _timer_proc[URUS_SCHEDULER_MAX_TIMER_PROCS];
@@ -76,10 +80,13 @@ private:
     bool _initialized;
     uint64_t _stopped_clock_usec;
 
-    uint64_t start;
+    static bool _isr_timer_running;
+    static bool _isr_sched_running;
+
     uint64_t now_micros;
     uint16_t dt_micros;
     uint16_t centinel_micros;
     uint16_t ms_cb;
+    uint64_t start;
 };
 #endif // __CYGWIN__
