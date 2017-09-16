@@ -5,6 +5,8 @@
 
 #include "../CORE_URUS_NAMESPACE.h"
 #include "../CoreUrusI2CDevice.h"
+#include "CoreUrusSemaphores_Cygwin.h"
+#include "Device.h"
 #include <inttypes.h>
 
 class CLCoreUrusI2CDevice_Cygwin : public NSCORE_URUS::CLCoreUrusI2CDevice {
@@ -45,7 +47,7 @@ public:
     bool set_speed(enum AP_HAL::Device::Speed speed) override { return true; }
 
     /* See AP_HAL::Device::get_semaphore() */
-    AP_HAL::Semaphore *get_semaphore() { return nullptr; }
+    AP_HAL::Semaphore *get_semaphore() { return &Semaphore; }
 
     /* See AP_HAL::Device::register_periodic_callback() */
     AP_HAL::Device::PeriodicHandle register_periodic_callback(
@@ -60,6 +62,8 @@ public:
     {
         return true;
     }
+
+    CLCoreUrusSemaphore_Cygwin Semaphore;
 };
 
 class CLCoreUrusI2CDeviceManager_Cygwin : public NSCORE_URUS::CLCoreUrusI2CDeviceManager {
@@ -71,8 +75,10 @@ public:
     /* AP_HAL::I2CDeviceManager implementation */
     AP_HAL::OwnPtr<AP_HAL::I2CDevice> get_device(uint8_t bus, uint8_t address) 
     {
-        return nullptr;
+        auto dev = AP_HAL::OwnPtr<AP_HAL::I2CDevice>(new CLCoreUrusI2CDevice_Cygwin());
+        return dev;
     }
+
 };
 #endif // __CYGWIN__
 
