@@ -14,7 +14,7 @@ bool CLCoreUrusRCInput::new_input() {
 }
 
 uint8_t CLCoreUrusRCInput::num_channels() {
-    return 0;
+    return 8;
 }
 
 uint16_t CLCoreUrusRCInput::read(uint8_t ch) {
