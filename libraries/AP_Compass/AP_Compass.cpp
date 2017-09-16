@@ -25,6 +25,7 @@
 #endif
 #include "AP_Compass_MMC3416.h"
 #include "AP_Compass_MAG3110.h"
+#include "AP_Compass_URUS.h"
 #include "AP_Compass.h"
 
 extern AP_HAL::HAL& hal;
@@ -873,6 +874,8 @@ void Compass::_detect_backends(void)
 #elif HAL_COMPASS_DEFAULT == HAL_COMPASS_BMM150_I2C
     ADD_BACKEND(DRIVER_BMM150, AP_Compass_BMM150::probe(*this, hal.i2c_mgr->get_device(HAL_COMPASS_BMM150_I2C_BUS, HAL_COMPASS_BMM150_I2C_ADDR)),
                 AP_Compass_BMM150::name, true);
+#elif HAL_COMPASS_DEFAULT == HAL_COMPASS_URUS
+    ADD_BACKEND(DRIVER_SITL, AP_Compass_URUS::detect(*this), nullptr, false);
 #else
     #error Unrecognised HAL_COMPASS_TYPE setting
 #endif
