@@ -91,6 +91,7 @@
 #define HAL_BARO_BMP280_I2C 11
 #define HAL_BARO_BMP280_SPI 12
 #define HAL_BARO_LPS25H     13
+#define HAL_BARO_URUS       14
 
 /* Compass driver types */
 #define HAL_COMPASS_HMC5843             1
