@@ -41,6 +41,7 @@
 #if CONFIG_HAL_BOARD == HAL_BOARD_QURT
 #include "AP_Baro_QURT.h"
 #endif
+#include "AP_Baro_URUS.h"
 #if HAL_WITH_UAVCAN
 #include "AP_Baro_UAVCAN.h"
 #endif
@@ -487,6 +488,9 @@ void AP_Baro::init(void)
 #elif HAL_BARO_DEFAULT == HAL_BARO_LPS25H
 	ADD_BACKEND(AP_Baro_LPS25H::probe(*this,
                                       std::move(hal.i2c_mgr->get_device(HAL_BARO_LPS25H_I2C_BUS, HAL_BARO_LPS25H_I2C_ADDR))));
+#elif HAL_BARO_DEFAULT == HAL_BARO_URUS
+    drivers[0] = new AP_Baro_URUS(*this);
+    _num_drivers = 1;
 #endif
 
     // can optionally have baro on I2C too
