@@ -58,8 +58,9 @@ void HAL_URUS::run(int argc, char * const argv[], Callbacks* callbacks) const
     scheduler->init();
     uartA->begin(115200);
 
-    rcin->init();
+    gpio->init();
     rcout->init();
+    rcin->init();
 
     analogin->init();
     
