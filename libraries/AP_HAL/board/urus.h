@@ -8,7 +8,6 @@
 #define HAL_BOARD_TERRAIN_DIRECTORY "terrain"
 #define HAL_PARAM_DEFAULTS_PATH "etc/defaults.parm"
 #define HAL_INS_DEFAULT HAL_INS_HIL
-#define HAL_COMPASS_DEFAULT HAL_COMPASS_HIL
 #define HAL_GPIO_LED_ON           LOW
 #define HAL_GPIO_LED_OFF          HIGH
 
@@ -20,4 +19,5 @@
 #define HAL_OS_POSIX_IO         1
 #define HAL_HAVE_BOARD_VOLTAGE  1
 #define HAL_BARO_DEFAULT HAL_BARO_URUS
+#define HAL_COMPASS_DEFAULT HAL_COMPASS_URUS
 #endif

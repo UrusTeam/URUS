@@ -24,6 +24,7 @@
 #include "AP_Compass_UAVCAN.h"
 #endif
 #include "AP_Compass_MMC3416.h"
+#include "AP_Compass_URUS.h"
 #include "AP_Compass.h"
 
 extern AP_HAL::HAL& hal;
@@ -802,6 +803,8 @@ void Compass::_detect_backends(void)
                 AP_Compass_AK8963::name, false);
     ADD_BACKEND(DRIVER_LSM9DS1, AP_Compass_LSM9DS1::probe(*this, hal.spi->get_device("lsm9ds1_m")),
                 AP_Compass_LSM9DS1::name, false);
+#elif HAL_COMPASS_DEFAULT == HAL_COMPASS_URUS
+    ADD_BACKEND(DRIVER_SITL, AP_Compass_URUS::detect(*this), nullptr, false);
 #else
     #error Unrecognised HAL_COMPASS_TYPE setting
 #endif
