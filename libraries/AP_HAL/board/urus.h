@@ -100,4 +100,5 @@
 #define HIL_SUPPORT 1
 #else
 #error "no URUS SHAL CORE set"
+#define HAL_BARO_DEFAULT HAL_BARO_URUS
 #endif
