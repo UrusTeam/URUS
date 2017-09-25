@@ -39,11 +39,15 @@
 #include <termios.h>
 
 #include "../CORE_URUS_NAMESPACE.h"
+#include "../CORE_URUS.h"
 
 #include "../CoreUrusUARTDriver.h"
-#include "CoreUrusUARTDriver_Cygwin.h"
+#include "../CoreUrusScheduler.h"
 
-extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
+#include "CoreUrusUARTDriver_Cygwin.h"
+#include "CoreUrusScheduler_Cygwin.h"
+
+static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
 
 /* CLCoreUrusUARTDriver_Cygwin method implementations */
 
@@ -57,6 +61,7 @@ void CLCoreUrusUARTDriver_Cygwin::begin(uint32_t baud, uint16_t rxSpace, uint16_
          uart:/dev/ttyUSB0:57600
      */
 
+    _status_scheduling = !_urus_core.scheduler->get_timer_event_eval();
     char *saveptr = nullptr;
     char *s = strdup(path);
     char *devtype = strtok_r(s, ":", &saveptr);
@@ -128,6 +133,7 @@ void CLCoreUrusUARTDriver_Cygwin::flush(void)
 size_t CLCoreUrusUARTDriver_Cygwin::write(uint8_t c)
 {
     if (txspace() <= 0) {
+        _timer_tick();
         return 0;
     }
 
@@ -138,6 +144,7 @@ size_t CLCoreUrusUARTDriver_Cygwin::write(uint8_t c)
     */
     if (!_status_scheduling) {
         _timer_tick();
+        return 0;
     }
 
     return 1;
@@ -178,8 +185,6 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_connection(uint16_t port, bool wait
         _use_send_recv = false;
         _listen_fd = -1;
         _fd = 1;
-        _writebuffer.set_size(1024);
-        _readbuffer.set_size(1024);
         return;
     }
 
