@@ -7,7 +7,7 @@
 #include "CoreUrusScheduler.h"
 #include <string.h>
 
-#define URUS_DEBUG 0
+#define URUS_DEBUG 1
 
 namespace NSCORE_URUS {
 
@@ -46,7 +46,7 @@ void CLCoreUrusScheduler::start_sched()
         }
         case CLK_TIME_USEC:
         {
-            clk_core_timers.timer_divider = pow(URUS_MAGIC_TIME, pos);
+            clk_core_timers.timer_divider = pow(URUS_MAGIC_TIME, pos - 1);
 #if URUS_DEBUG == 1
             fprintf(stdout, "CPU CLOCK have microseconds range %u\n", clk_core_timers.timer_divider);
 #endif
@@ -63,11 +63,11 @@ void CLCoreUrusScheduler::start_sched()
     }
 
     /* This will give to us the frequency of core speed sched and isr timer. */
-    uint32_t _time_factor = (clk_core_timers.clk_per_sec * clk_core_timers.timer_divider);
+    uint32_t _time_factor = (URUS_MAGIC_TIME * clk_core_timers.timer_divider);
     clk_core_timers.isr_time = _time_factor / clk_core_timers.isr_time;
     _shal_tick_hz = (_time_factor / clk_core_timers.isr_time) / SHAL_ISR_SCHED_FREQ;
 #if URUS_DEBUG == 1
-    fprintf(stdout, "_shal_tick_hz: %u isr_time: %u\n", _shal_tick_hz, (uint32_t)clk_core_timers.isr_time);
+    fprintf(stdout, "_shal_tick_hz: %u isr_time: %u time_factor: %u divider: %u\n", _shal_tick_hz, (uint32_t)clk_core_timers.isr_time, _time_factor, clk_core_timers.timer_divider);
 #endif
 }
 
