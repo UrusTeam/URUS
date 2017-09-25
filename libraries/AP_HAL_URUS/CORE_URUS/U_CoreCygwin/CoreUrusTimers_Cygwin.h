@@ -18,6 +18,7 @@ private:
     void _micro_sleep(uint32_t);
     uint64_t _micros64ts();
     uint64_t _micros64tv();
+    uint64_t nowt;
 };
 
 #endif // __CYGWIN__
