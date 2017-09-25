@@ -7,12 +7,16 @@
 #include "CoreUrusScheduler.h"
 #include <string.h>
 
+#define URUS_DEBUG 0
+
 namespace NSCORE_URUS {
 
 static const CLCORE_URUS& _urus_core = get_CORE();
 bool CLCoreUrusScheduler::_isr_timer_running_shal = false;
-uint64_t CLCoreUrusScheduler::_timer_tick_shal = 0;
+uint32_t CLCoreUrusScheduler::_timer_tick_shal = 0;
 uint32_t CLCoreUrusScheduler::_shal_tick_hz = 0;
+
+struct CLCoreUrusScheduler::clk_core_timers_s CLCoreUrusScheduler::clk_core_timers;
 
 CLCoreUrusScheduler::CLCoreUrusScheduler ()
 {}
@@ -22,7 +26,8 @@ void CLCoreUrusScheduler::start_sched()
 
     uint32_t result;
     uint8_t pos = 0;
-    uint32_t timer_divider = 1000;
+    uint32_t timer_divider = URUS_MAGIC_TIME;
+    clk_core_timers.isr_time = CORE_ISR_TIMER_FREQ;
 
     result = clk_core_timers.clk_per_sec;
     while (result > 1) {
@@ -33,40 +38,48 @@ void CLCoreUrusScheduler::start_sched()
     switch (pos) {
         case CLK_TIME_MSEC:
         {
-            clk_core_timers.timer_divider = 1;
-            printf("CPU CLOCK have milliseconds range\n");
+            clk_core_timers.timer_divider = pow(URUS_MAGIC_TIME, pos);
+#if URUS_DEBUG == 1
+            fprintf(stdout, "CPU CLOCK have milliseconds range\n");
+#endif
             break;
         }
         case CLK_TIME_USEC:
         {
-            clk_core_timers.timer_divider = 1000;
-            printf("CPU CLOCK have microseconds range\n");
+            clk_core_timers.timer_divider = pow(URUS_MAGIC_TIME, pos);
+#if URUS_DEBUG == 1
+            fprintf(stdout, "CPU CLOCK have microseconds range %u\n", clk_core_timers.timer_divider);
+#endif
             break;
         }
         case CLK_TIME_NSEC:
         {
-            clk_core_timers.timer_divider = 1000000;
-            printf("CPU CLOCK have nanosconds range\n");
+            clk_core_timers.timer_divider = pow(URUS_MAGIC_TIME, pos);
+#if URUS_DEBUG == 1
+            fprintf(stdout, "CPU CLOCK have nanosconds range\n");
+#endif
             break;
         }
     }
 
-    /* This will give to us 1KHZ of core speed use timer
-     * for this isr.
-     * clk_core_timers.dial the dial scale is from 0.001 to 1.
-     */
-    _shal_tick_hz = (clk_core_timers.clk_per_sec / clk_core_timers.timer_divider) * clk_core_timers.dial;
+    /* This will give to us the frequency of core speed sched and isr timer. */
+    uint32_t _time_factor = (clk_core_timers.clk_per_sec * clk_core_timers.timer_divider);
+    clk_core_timers.isr_time = _time_factor / clk_core_timers.isr_time;
+    _shal_tick_hz = (_time_factor / clk_core_timers.isr_time) / SHAL_ISR_SCHED_FREQ;
+#if URUS_DEBUG == 1
+    fprintf(stdout, "_shal_tick_hz: %u isr_time: %u\n", _shal_tick_hz, (uint32_t)clk_core_timers.isr_time);
+#endif
 }
 
-uint64_t CLCoreUrusScheduler::get_isr_timer_tick()
+uint32_t CLCoreUrusScheduler::get_isr_timer_tick()
 {
     return _timer_tick_shal;
 }
 
 void CLCoreUrusScheduler::fire_isr_sched()
 {
-    static uint64_t now_tick = 0;
-    static uint64_t last_tick = 0;
+    static uint32_t now_tick = 0;
+    static uint32_t last_tick = 0;
 
     now_tick = _urus_core.scheduler->get_isr_timer_tick();
 
@@ -92,7 +105,7 @@ void CLCoreUrusScheduler::timer_event()
 {
     if (!_timer_event_eval) {
         _timer_event_eval = true;
-        printf("\nWARNING!\nCORE target has no realtime support."
+        fprintf(stdout, "\nWARNING!\nCORE target has no realtime support."
                "\nRunning Interactive Mode!\n");
     }
 }
