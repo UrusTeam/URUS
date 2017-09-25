@@ -9,6 +9,7 @@
 
 #define URUS_SCHEDULER_MAX_TIMER_PROCS 4
 #include  <stdio.h>
+#include <windows.h>
 
 /* Scheduler implementation: */
 class CLCoreUrusScheduler_Cygwin : public NSCORE_URUS::CLCoreUrusScheduler {
@@ -76,6 +77,7 @@ private:
     static bool _in_io_proc;
 
     void stop_clock(uint64_t time_usec);
+    static void usleep_win(DWORD waitTime);
 
     bool _initialized;
     uint64_t _stopped_clock_usec;
@@ -83,10 +85,11 @@ private:
     static bool _isr_timer_running;
     static bool _isr_sched_running;
 
-    uint64_t now_micros;
+    uint32_t now_micros;
     uint16_t dt_micros;
     uint16_t centinel_micros;
     uint16_t ms_cb;
-    uint64_t start;
+    uint32_t start;
+
 };
 #endif // __CYGWIN__
