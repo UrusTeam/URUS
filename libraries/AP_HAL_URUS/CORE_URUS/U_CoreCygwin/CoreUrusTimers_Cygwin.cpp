@@ -5,7 +5,9 @@
 #include "../CORE_URUS_NAMESPACE.h"
 
 #include "../CoreUrusTimers.h"
+#include "../CoreUrusScheduler.h"
 #include "CoreUrusTimers_Cygwin.h"
+#include "CoreUrusScheduler_Cygwin.h"
 
 #include <stdio.h>
 #include <time.h>
@@ -13,6 +15,8 @@
 #include <sys/times.h>
 #include <sys/time.h>
 #include <time.h>
+
+static NSCORE_URUS::CLCoreUrusScheduler* _scheduler = NSCORE_URUS::get_scheduler();
 
 static struct {
     struct timeval start_time;
@@ -22,6 +26,7 @@ CLCoreUrusTimers_Cygwin::CLCoreUrusTimers_Cygwin() :
     NSCORE_URUS::CLCoreUrusTimers()
 {
     gettimeofday(&state_tv.start_time, nullptr);
+    nowt = _scheduler->get_isr_timer_tick() * _scheduler->get_timer_dial();
 
 #if 0
     _measure_time_proccess();
@@ -90,7 +95,7 @@ void CLCoreUrusTimers_Cygwin::_measure_time_proccess()
 
 uint64_t CLCoreUrusTimers_Cygwin::get_core_hrdtime ()
 {
-    return _micros64tv();
+    return (_scheduler->get_isr_timer_tick() - nowt) * _scheduler->get_timer_dial();
 }
 
 #endif // __CYGWIN__
