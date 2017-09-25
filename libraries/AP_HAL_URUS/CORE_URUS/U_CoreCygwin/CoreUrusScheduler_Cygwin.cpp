@@ -2,6 +2,7 @@
 #if (CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN)
 
 #include "../CORE_URUS_NAMESPACE.h"
+#include "../CORE_URUS.h"
 
 #include "../CoreUrusScheduler.h"
 #include "CoreUrusScheduler_Cygwin.h"
@@ -15,6 +16,7 @@
 #include <errno.h>
 
 extern const AP_HAL::HAL& hal;
+static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
 
 AP_HAL::Proc CLCoreUrusScheduler_Cygwin::_failsafe = nullptr;
 volatile bool CLCoreUrusScheduler_Cygwin::_timer_suspended = false;
@@ -37,6 +39,18 @@ CLCoreUrusScheduler_Cygwin::CLCoreUrusScheduler_Cygwin() :
 {
 }
 
+void CLCoreUrusScheduler_Cygwin::usleep_win(DWORD waitTime)
+{
+	LARGE_INTEGER perfCnt_time, start_time, now_time;
+
+	QueryPerformanceFrequency(&perfCnt_time);
+	QueryPerformanceCounter(&start_time);
+
+	do {
+		QueryPerformanceCounter((LARGE_INTEGER*) &now_time);
+	} while ((now_time.QuadPart - start_time.QuadPart) / float(perfCnt_time.QuadPart) * 1000 * 1000 < waitTime);
+}
+
 void *CLCoreUrusScheduler_Cygwin::_fire_isr_timer(void *arg)
 {
 
@@ -47,10 +61,10 @@ void *CLCoreUrusScheduler_Cygwin::_fire_isr_timer(void *arg)
     _isr_timer_running = true;
 
     while(1) {
-        /* this make 2KHZ granulation for
+        /* this make frequency granulation for
          * shal isr timer with posix thread
          */
-        hal.scheduler->delay_microseconds(500);
+        usleep_win(clk_core_timers.isr_time);
         fire_isr_timer();
     }
 
@@ -69,10 +83,10 @@ void *CLCoreUrusScheduler_Cygwin::_fire_isr_sched(void *arg)
     _isr_sched_running = true;
 
     while(1) {
-        /* this make 5KHZ granulation for
+        /* this make frequency granulation for
          * shal isr timer with posix thread
          */
-        hal.scheduler->delay_microseconds(200);
+        usleep_win((clk_core_timers.isr_time / CORE_SPEED_FREQ_PERCENT));
         fire_isr_sched();
     }
     _isr_sched_running = false;
@@ -84,7 +98,6 @@ void CLCoreUrusScheduler_Cygwin::init()
 {
 
     clk_core_timers.clk_per_sec = CLOCKS_PER_SEC;
-    clk_core_timers.dial = 0.05f;
     start_sched();
 
     /* See CLCoreUrusScheduler::fire_isr_timer on the TOP SHAL. */
@@ -116,33 +129,33 @@ void CLCoreUrusScheduler_Cygwin::init()
 
 void CLCoreUrusScheduler_Cygwin::delay_microseconds(uint16_t usec)
 {
-    uint64_t start_micros = AP_HAL::micros64();
-    while ((AP_HAL::micros64() - start_micros) < usec);
+    uint32_t start_micros = AP_HAL::micros();
+    while ((AP_HAL::micros() - start_micros) < usec);
 }
 
 void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
 {
-    start = AP_HAL::millis64();
+    start = AP_HAL::millis();
     now_micros = start;
     dt_micros = 0;
-    centinel_micros = 1000;
+    centinel_micros = URUS_MAGIC_TIME;
     ms_cb = ms;
 
-    while ((AP_HAL::millis64() - start) <= ms) {
-        dt_micros = AP_HAL::micros64() - now_micros;
-        now_micros = AP_HAL::micros64();
+    while ((AP_HAL::millis() - start) < ms) {
+        dt_micros = AP_HAL::micros() - now_micros;
+        now_micros = AP_HAL::micros();
         delay_microseconds(centinel_micros);
 
-        if (dt_micros >= centinel_micros) {
+        if (dt_micros > centinel_micros) {
             centinel_micros = dt_micros - (dt_micros - centinel_micros);
         }
 
-        if (dt_micros <= centinel_micros) {
+        if (dt_micros < centinel_micros) {
             centinel_micros = dt_micros + (centinel_micros - dt_micros);
         }
 
         ms_cb--;
-        if (_min_delay_cb_ms <= ms_cb) {
+        if (_min_delay_cb_ms < ms_cb) {
             if (_delay_cb) {
                 _delay_cb();
             }
@@ -295,11 +308,14 @@ void CLCoreUrusScheduler_Cygwin::_run_io_procs(bool called_from_isr)
 
     _in_io_proc = false;
 
-    CLCoreUrusUARTDriver_Cygwin::from(hal.uartA)->_timer_tick();
-    CLCoreUrusUARTDriver_Cygwin::from(hal.uartB)->_timer_tick();
-    CLCoreUrusUARTDriver_Cygwin::from(hal.uartC)->_timer_tick();
-    CLCoreUrusUARTDriver_Cygwin::from(hal.uartD)->_timer_tick();
-    CLCoreUrusUARTDriver_Cygwin::from(hal.uartE)->_timer_tick();
+    if (!_urus_core.scheduler->get_timer_event_eval()) {
+        CLCoreUrusUARTDriver_Cygwin::from(hal.uartA)->_timer_tick();
+        CLCoreUrusUARTDriver_Cygwin::from(hal.uartB)->_timer_tick();
+        CLCoreUrusUARTDriver_Cygwin::from(hal.uartC)->_timer_tick();
+        CLCoreUrusUARTDriver_Cygwin::from(hal.uartD)->_timer_tick();
+        CLCoreUrusUARTDriver_Cygwin::from(hal.uartE)->_timer_tick();
+        CLCoreUrusUARTDriver_Cygwin::from(hal.uartF)->_timer_tick();
+    }
 
 }
 
