@@ -55,6 +55,8 @@ public:
 
     uint64_t stopped_clock_usec() const { return _stopped_clock_usec; }
 
+    bool     in_main_thread() const override;
+
 private:
     uint8_t _nested_atomic_ctr;
     AP_HAL::Proc _delay_cb;
