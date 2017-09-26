@@ -39,6 +39,11 @@ CLCoreUrusScheduler_Cygwin::CLCoreUrusScheduler_Cygwin() :
 {
 }
 
+bool CLCoreUrusScheduler_Cygwin::in_main_thread() const
+{
+    return true;
+}
+
 void CLCoreUrusScheduler_Cygwin::usleep_win(DWORD waitTime)
 {
 	LARGE_INTEGER perfCnt_time, start_time, now_time;
