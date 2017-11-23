@@ -9,6 +9,8 @@
 #include "Device.h"
 #include <inttypes.h>
 
+static const AP_HAL::HAL &hal = AP_HAL::get_HAL();
+
 class CLCoreUrusI2CDevice_Cygwin : public NSCORE_URUS::CLCoreUrusI2CDevice {
 public:
     CLCoreUrusI2CDevice_Cygwin() :
@@ -51,9 +53,11 @@ public:
 
     /* See AP_HAL::Device::register_periodic_callback() */
     AP_HAL::Device::PeriodicHandle register_periodic_callback(
-        uint32_t period_usec, AP_HAL::Device::PeriodicCb) override
+        uint32_t period_usec, AP_HAL::Device::PeriodicCb cb) override
     {
-        return nullptr;
+        AP_HAL::Device::PeriodicHandle p = &cb;
+        hal.scheduler->register_timer_process(cb);
+        return static_cast<AP_HAL::Device::PeriodicHandle>(p);
     }
 
     /* See Device::adjust_periodic_callback() */
