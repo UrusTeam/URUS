@@ -548,6 +548,7 @@ class uruscygwin(urushal):
             'AP_Relay',
             'AP_AdvancedFailsafe',
             'AP_Camera',
+            'AP_Volz_Protocol',
             'AP_HAL_URUS/dummy_libs',
             'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
         ]
