@@ -16,8 +16,8 @@ public:
 
 private:
 
-    AP_InertialSensor ins;
-    AP_Scheduler scheduler;
+    AP_InertialSensor ins = AP_InertialSensor::create();
+    AP_Scheduler scheduler = AP_Scheduler::create();
 
     uint32_t ins_counter;
     static const AP_Scheduler::Task scheduler_tasks[];
@@ -46,7 +46,7 @@ const AP_Scheduler::Task SchedTest::scheduler_tasks[] = {
 void SchedTest::setup(void)
 {
 
-    AP_BoardConfig{}.init();
+    AP_BoardConfig::create().init();
 
     ins.init(scheduler.get_loop_rate_hz());
 
