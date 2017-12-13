@@ -88,7 +88,7 @@ void CLCoreUrusUARTDriver_Cygwin::begin(uint32_t baud, uint16_t rxSpace, uint16_
     }
     free(s);
 
-    _set_nonblocking(_fd);
+    _set_nonblocking(_fd, _console);
 }
 
 void CLCoreUrusUARTDriver_Cygwin::end()
@@ -162,7 +162,7 @@ size_t CLCoreUrusUARTDriver_Cygwin::write(const uint8_t *buffer, size_t size)
     return size;
 }
 
-    
+
 /*
   start a TCP connection for the serial port. If wait_for_connection
   is true then block until a client connects
@@ -253,7 +253,7 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_connection(uint16_t port, bool wait
 
 
 /*
-  start a TCP client connection for the serial port. 
+  start a TCP client connection for the serial port.
  */
 void CLCoreUrusUARTDriver_Cygwin::_tcp_start_client(const char *address, uint16_t port)
 {
@@ -266,7 +266,7 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_client(const char *address, uint16_
     }
 
     _use_send_recv = true;
-    
+
     if (_fd != -1) {
         close(_fd);
     }
@@ -394,7 +394,7 @@ bool CLCoreUrusUARTDriver_Cygwin::_select_check(int fd)
     return false;
 }
 
-void CLCoreUrusUARTDriver_Cygwin::_set_nonblocking(int fd)
+void CLCoreUrusUARTDriver_Cygwin::_set_nonblocking(int fd, bool is_console)
 {
     unsigned rd_flags;
     unsigned wr_flags;
@@ -408,11 +408,18 @@ void CLCoreUrusUARTDriver_Cygwin::_set_nonblocking(int fd)
     wr_flags = wr_flags | O_NONBLOCK;
 
     if (fcntl(_rd_fd, F_SETFL, rd_flags) < 0) {
-        ::printf("Failed to set Console nonblocking %s\n", strerror(errno));
+        ::printf("Failed to set STDIN Console nonblocking %s\n", strerror(errno));
     }
 
-    if (fcntl(_wr_fd, F_SETFL, wr_flags) < 0) {
-        ::printf("Failed to set Console nonblocking %s\n",strerror(errno));
+    if (is_console) {
+        struct termios custom;
+        tcgetattr(_wr_fd, &custom);
+        custom.c_lflag &= ~(ICANON|ECHO);
+        tcsetattr(_wr_fd,TCSANOW,&custom);
+
+        if (fcntl(_wr_fd, F_SETFL, wr_flags) < 0) {
+            ::printf("Failed to set STDOUT Console nonblocking %s\n",strerror(errno));
+        }
     }
 }
 
@@ -455,7 +462,7 @@ void CLCoreUrusUARTDriver_Cygwin::_timer_tick(void)
     if (space == 0) {
         return;
     }
-    
+
     char buf[space];
     ssize_t nread = 0;
     if (!_use_send_recv) {
