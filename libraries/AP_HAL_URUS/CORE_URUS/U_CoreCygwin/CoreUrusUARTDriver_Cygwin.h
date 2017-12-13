@@ -17,10 +17,10 @@ public:
 
     CLCoreUrusUARTDriver_Cygwin(const uint8_t portNumber, const bool console) :
         NSCORE_URUS::CLCoreUrusUARTDriver(),
-        _portNumber(portNumber),
-        _console(console),
         _fd(-1),
-        _listen_fd(-1)
+        _portNumber(portNumber),
+        _listen_fd(-1),
+        _console(console)
     {}
 
     static CLCoreUrusUARTDriver *from(AP_HAL::UARTDriver *uart) {
@@ -91,7 +91,7 @@ private:
     void _tcp_start_client(const char *address, uint16_t port);
     void _check_connection(void);
     static bool _select_check(int );
-    static void _set_nonblocking(int );
+    static void _set_nonblocking(int , bool is_console);
     bool _use_rtscts;
 
     /* default configuration for uart driver */
