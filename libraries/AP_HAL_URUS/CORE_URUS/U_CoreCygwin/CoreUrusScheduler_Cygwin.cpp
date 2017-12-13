@@ -70,6 +70,7 @@ void *CLCoreUrusScheduler_Cygwin::_fire_isr_timer(void *arg)
          * shal isr timer with posix thread
          */
         usleep_win(clk_core_timers.isr_time);
+        //hal.scheduler->delay_microseconds(clk_core_timers.isr_time);
         fire_isr_timer();
     }
 
@@ -141,7 +142,7 @@ void CLCoreUrusScheduler_Cygwin::delay_microseconds(uint16_t usec)
 void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
 {
     start = AP_HAL::millis();
-    now_micros = start;
+    now_micros = AP_HAL::micros();
     dt_micros = 0;
     centinel_micros = URUS_MAGIC_TIME;
     ms_cb = ms;
