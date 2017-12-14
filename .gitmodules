@@ -28,3 +28,6 @@
 [submodule "libraries/AP_HAL_F4Light/hardware/STM32F4xx_DSP_StdPeriph_Lib_V1.1.0/Libraries"]
 	path = libraries/AP_HAL_F4Light/hardware/STM32F4xx_DSP_StdPeriph_Lib_V1.1.0/Libraries
 	url = https://github.com/night-ghost/SPL
+[submodule "modules/urus_modules"]
+	path = modules/urus_modules
+	url = https://github.com/UrusTeam/urus_modules.git
