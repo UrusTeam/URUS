@@ -19,3 +19,6 @@
 [submodule "gtest"]
 	path = modules/gtest
 	url = git://github.com/ArduPilot/googletest
+[submodule "modules/urus_modules"]
+	path = modules/urus_modules
+	url = https://github.com/UrusTeam/urus_modules.git
