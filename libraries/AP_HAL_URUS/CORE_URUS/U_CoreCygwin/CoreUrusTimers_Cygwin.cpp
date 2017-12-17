@@ -98,4 +98,25 @@ uint64_t CLCoreUrusTimers_Cygwin::get_core_hrdtime ()
     return (_scheduler->get_isr_timer_tick() - nowt) * _scheduler->get_timer_dial();
 }
 
+uint32_t CLCoreUrusTimers_Cygwin::get_core_micros32()
+{
+    return get_core_hrdtime();
+}
+
+uint64_t CLCoreUrusTimers_Cygwin::get_core_micros64()
+{
+    return get_core_micros32();
+}
+
+uint32_t CLCoreUrusTimers_Cygwin::get_core_millis32()
+{
+    return get_core_hrdtime() / 1000;
+}
+
+uint64_t CLCoreUrusTimers_Cygwin::get_core_millis64()
+{
+    return get_core_millis32();
+}
+
+
 #endif // __CYGWIN__
