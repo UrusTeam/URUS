@@ -10,5 +10,9 @@ public:
     CLCoreUrusTimers()
     {}
 
-    virtual uint64_t get_core_hrdtime () = 0;
+    virtual uint32_t get_core_micros32 () = 0;
+    virtual uint64_t get_core_micros64 () = 0;
+
+    virtual uint32_t get_core_millis32 () = 0;
+    virtual uint64_t get_core_millis64 () = 0;
 };
