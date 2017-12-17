@@ -10,7 +10,14 @@
 class CLCoreUrusTimers_Cygwin : public NSCORE_URUS::CLCoreUrusTimers {
 public:
     CLCoreUrusTimers_Cygwin();
-    uint64_t get_core_hrdtime () override;
+
+    uint64_t get_core_hrdtime ();
+
+    uint32_t get_core_micros32 () override;
+    uint64_t get_core_micros64 () override;
+
+    uint32_t get_core_millis32 () override;
+    uint64_t get_core_millis64 () override;
 
 private:
 
