@@ -35,22 +35,22 @@ void panic(const char *errormsg, ...)
 
 uint32_t micros()
 {
-    return micros64() & 0xFFFFFFFF;
+    return _urus_core.timers->get_core_micros32();
 }
 
 uint32_t millis()
 {
-    return millis64() & 0xFFFFFFFF;
+    return _urus_core.timers->get_core_millis32();
 }
 
 uint64_t micros64()
 {
-    return _urus_core.timers->get_core_hrdtime();
+    return _urus_core.timers->get_core_micros64();
 }
 
 uint64_t millis64()
 {
-    return _urus_core.timers->get_core_hrdtime() / 1000;
+    return _urus_core.timers->get_core_millis64();
 }
 
 } // namespace AP_HAL
