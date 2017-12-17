@@ -7,7 +7,7 @@
 #include "CoreUrusScheduler.h"
 #include <string.h>
 
-#define URUS_DEBUG 1
+#define URUS_DEBUG 0
 
 namespace NSCORE_URUS {
 
@@ -105,8 +105,10 @@ void CLCoreUrusScheduler::timer_event()
 {
     if (!_timer_event_eval) {
         _timer_event_eval = true;
+#if CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN
         fprintf(stdout, "\nWARNING!\nCORE target has no realtime support."
                "\nRunning Interactive Mode!\n");
+#endif
     }
 }
 
