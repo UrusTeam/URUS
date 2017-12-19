@@ -61,7 +61,7 @@ public:
     */
     virtual void timer_event();
 
-    uint32_t get_isr_timer_tick();
+    static uint32_t get_isr_timer_tick();
 
     enum CLK_TIMERS {
         CLK_TIME_MSEC = 1,
@@ -83,6 +83,9 @@ public:
     bool get_timer_event_eval() {
         return _timer_event_eval;
     }
+
+    virtual bool in_timerprocess() { return false; }
+
 private:
 
     bool _timer_event_eval = false;
