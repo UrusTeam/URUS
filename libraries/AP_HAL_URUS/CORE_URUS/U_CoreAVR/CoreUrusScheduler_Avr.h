@@ -78,7 +78,6 @@ private:
     uint16_t centinel_micros;
     uint16_t ms_cb;
     uint32_t start;
-    uint32_t start_micros;
 
     static volatile bool _isr_sched_running;
     static volatile uint8_t _timer_reset_value;
