@@ -6,22 +6,6 @@
 #include "../CORE_URUS_NAMESPACE.h"
 #include "../CoreUrusGPIO.h"
 
-#if defined(SHAL_CORE_APM1)
- # define HAL_GPIO_A_LED_PIN        37
- # define HAL_GPIO_B_LED_PIN        36
- # define HAL_GPIO_C_LED_PIN        35
- # define HAL_GPIO_LED_ON           HIGH
- # define HAL_GPIO_LED_OFF          LOW
- # define HAL_GPIO_USB_MUX_PIN	    -1
-#elif defined(SHAL_CORE_APM2)
- # define HAL_GPIO_A_LED_PIN        27
- # define HAL_GPIO_B_LED_PIN        26
- # define HAL_GPIO_C_LED_PIN        25
- # define HAL_GPIO_LED_ON           LOW
- # define HAL_GPIO_LED_OFF          HIGH
- # define HAL_GPIO_USB_MUX_PIN	    23
-#endif
-
 class CLCoreUrusGPIO_Avr : public NSCORE_URUS::CLCoreUrusGPIO {
 public:
     CLCoreUrusGPIO_Avr();
@@ -50,7 +34,7 @@ public:
     CLCoreDigitalSource_Avr(uint8_t v);
     void    mode(uint8_t output);
     uint8_t read();
-    void    write(uint8_t value); 
+    void    write(uint8_t value);
     void    toggle();
 private:
     uint8_t _v;
