@@ -9,6 +9,8 @@ class NSCORE_URUS::CLCoreUrusI2CDevice : public AP_HAL::I2CDevice {
 public:
     CLCoreUrusI2CDevice()
     {}
+
+    virtual void begin() {};
 };
 
 class NSCORE_URUS::CLCoreUrusI2CDeviceManager : public AP_HAL::I2CDeviceManager {
