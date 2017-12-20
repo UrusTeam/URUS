@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<UrusStudio_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ModulesMasterLibUrus" />
+		<Option execution_dir="." />
+		<Option pch_mode="2" />
+		<Option compiler="avr-gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="build/bin/Debug/ModulesMasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="build/bin/Release/ModulesMasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/obj/Release/" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fno-use-cxa-atexit" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega2560" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-DWAF_BUILD=0" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_APM2=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAVE_CMATH_ISNAN=1" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AP_AccelCal.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AccelCalibrator.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_BoardConfig/AP_BoardConfig.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/AP_Common.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/c++.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Boards.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/HAL.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/UARTDriver.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Util.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/board/urus.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/Print.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/ftoa_engine.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/print_vprintf.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/utoa_invert.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusAnalogIn_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusGPIO_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusI2CDevice_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCInput_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCOutput_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSPIDevice_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_TimerAvr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSemaphores_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusStorage_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusTimers_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUARTDriver_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUtil_Avr.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/system.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_HIL.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AuxiliaryBus.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_GeodesicGrid.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_Math.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/location.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix3.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrixN.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix_alg.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/polygon.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/quaternion.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector2.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector3.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_Notify.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/Buzzer.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/ExternalLED.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Param/AP_Param.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_Identity.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Scheduler/AP_Scheduler.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/DerivativeFilter.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/LowPassFilter.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/LowPassFilter2p.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/StorageManager/StorageManager.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</UrusStudio_project_file>
