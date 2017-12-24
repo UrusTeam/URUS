@@ -41,7 +41,7 @@ CLCoreUrusScheduler_Cygwin::CLCoreUrusScheduler_Cygwin() :
 
 bool CLCoreUrusScheduler_Cygwin::in_main_thread() const
 {
-    return true;
+    return !_in_timer_proc && !_in_io_proc;
 }
 
 void CLCoreUrusScheduler_Cygwin::usleep_win(DWORD waitTime)
