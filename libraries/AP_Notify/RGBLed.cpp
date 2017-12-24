@@ -348,11 +348,11 @@ void RGBLed::update()
     }
     if (pNotify) {
         if (!pNotify->_rgb_led_override) {
-            update_colours();
-            set_rgb(_red_des, _green_des, _blue_des);
+            update_override();
         }
     } else {
-        update_override();
+        update_colours();
+        set_rgb(_red_des, _green_des, _blue_des);
     }
 }
 
