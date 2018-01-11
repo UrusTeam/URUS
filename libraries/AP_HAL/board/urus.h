@@ -7,6 +7,13 @@
 #define SHAL_CORE_ANDROID   2
 #define SHAL_CORE_APM       3
 
+#ifndef HIGH
+#define HIGH 1
+#endif
+#ifndef LOW
+#define LOW 1
+#endif
+
 #if CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN
 #define HAL_BOARD_LOG_DIRECTORY "logs"
 #define HAL_BOARD_TERRAIN_DIRECTORY "terrain"
