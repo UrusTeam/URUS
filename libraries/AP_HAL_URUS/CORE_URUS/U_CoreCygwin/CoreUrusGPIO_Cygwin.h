@@ -6,6 +6,8 @@
 #include "../CORE_URUS_NAMESPACE.h"
 #include "../CoreUrusGPIO.h"
 
+#define PORTS_NUM   4
+
 class CLCoreUrusGPIO_Cygwin : public NSCORE_URUS::CLCoreUrusGPIO {
 public:
     CLCoreUrusGPIO_Cygwin();
@@ -25,6 +27,10 @@ public:
 
     /* return true if USB cable is connected */
     bool    usb_connected(void);
+
+private:
+    uint8_t _pin[PORTS_NUM];
+    uint8_t _pinmode[PORTS_NUM];
 };
 
 class CLCoreDigitalSource_Cygwin : public NSCORE_URUS::CLCoreUrusDigitalSource {
