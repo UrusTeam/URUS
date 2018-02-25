@@ -552,6 +552,7 @@ class uruscygwin(urushal):
             'AP_SBusOut',
             'AP_Menu',
             'AP_FlashStorage',
+            'AP_Joypad',
             'AP_HAL_URUS/dummy_libs',
             'AP_HAL_URUS/CORE_URUS/U_CoreCygwin',
         ]
