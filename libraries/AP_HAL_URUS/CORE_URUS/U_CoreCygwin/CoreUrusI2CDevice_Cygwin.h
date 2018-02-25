@@ -77,7 +77,10 @@ public:
     { }
 
     /* AP_HAL::I2CDeviceManager implementation */
-    AP_HAL::OwnPtr<AP_HAL::I2CDevice> get_device(uint8_t bus, uint8_t address) 
+    AP_HAL::OwnPtr<AP_HAL::I2CDevice> get_device(uint8_t bus, uint8_t address,
+                                                 uint32_t bus_clock=400000,
+                                                 bool use_smbus = false,
+                                                 uint32_t timeout_ms=4) override
     {
         auto dev = AP_HAL::OwnPtr<AP_HAL::I2CDevice>(new CLCoreUrusI2CDevice_Cygwin());
         return dev;
