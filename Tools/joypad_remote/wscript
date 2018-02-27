@@ -4,14 +4,18 @@
 def build(bld):
     vehicle = bld.path.name
     bld.ap_stlib(
-        name=vehicle + 'urus',
+        name=vehicle + '_libs',
         ap_vehicle='UNKNOWN',
-        ap_libraries=[
+        ap_libraries=bld.ap_common_vehicle_libraries() + [
+            'AP_Beacon',
+            'AP_Joypad',
+            'AP_AdvancedFailsafe',
+            'AP_Camera',
         ],
     )
 
     bld.ap_program(
         program_name=vehicle,
-        program_groups=['urusexamples'],
-        use=vehicle + 'urus',
+        program_groups=['bin', 'examples', 'urusexamples'],
+        use=vehicle + '_libs',
     )
