@@ -95,3 +95,6 @@ GPATH
 GRTAGS
 GTAGS
 config.mk
+*.layout
+*.depend
+
