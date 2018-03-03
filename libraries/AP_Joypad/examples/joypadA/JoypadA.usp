@@ -7,7 +7,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="avr-gcc" />
 		<Build>
-			<Target title="apm2_rel">
+			<Target title="APM2_Release">
 				<Option output="../../../../build/apm2/Release/joypadA.elf" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../../../build/apm2/obj/Release/" />
@@ -68,7 +68,7 @@
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
-			<Target title="apm328p_rel">
+			<Target title="APM328_Release">
 				<Option output="../../../../build/apm2/Release/joypadA.elf" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../../../build/apm2/obj/Release/" />
@@ -129,7 +129,7 @@
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
-			<Target title="apm16u2_rel">
+			<Target title="APM16U_Release">
 				<Option output="../../../../build/apm2/Release/joypadA.elf" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../../../build/apm2/obj/Release/" />
