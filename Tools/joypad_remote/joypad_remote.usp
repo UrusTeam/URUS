@@ -6,7 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="avr-gcc" />
 		<Build>
-			<Target title="amp2_rel">
+			<Target title="APM2_Release">
 				<Option output="../../build/apm2/Release/joypad_remote.elf" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../build/apm2/obj/Release/" />
@@ -71,7 +71,7 @@
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
-			<Target title="amp328_rel">
+			<Target title="APM328_Release">
 				<Option output="../../build/apm2/Release/joypad_remote.elf" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../build/apm2/obj/Release/" />
