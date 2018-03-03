@@ -59,15 +59,80 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-mmcu=atmega2560" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="sh -c &apos;./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink&apos;" />
+				</ExtraCommands>
+			</Target>
+			<Target title="APM328_Release">
+				<Option output="build/apm2/lib/Release/MasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/apm2/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fno-use-cxa-atexit" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega328p" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-DWAF_BUILD=0" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_APM328=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAVE_CMATH_ISNAN=1" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-mmcu=atmega328p" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="sh -c &apos;./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink&apos;" />
 				</ExtraCommands>
 			</Target>
 		</Build>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AP_AccelCal.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AccelCalibrator.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_BoardConfig/AP_BoardConfig.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AP_AccelCal.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AccelCalibrator.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_BoardConfig/AP_BoardConfig.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/AP_Common.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/c++.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Boards.h" />
@@ -101,14 +166,45 @@
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/system.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_HIL.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AuxiliaryBus.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_GeodesicGrid.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_HIL.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AuxiliaryBus.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_Backend.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_Backend.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_USB.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_USB.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/external/avr/usb_gamepad_def_shared.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/external/avr/usb_gamepad_ext.c">
+			<Option compilerVar="CC" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_GeodesicGrid.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_Math.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/location.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix3.cpp" />
@@ -118,10 +214,18 @@
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/quaternion.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector2.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector3.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_Notify.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/Buzzer.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/ExternalLED.cpp" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_Notify.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/Buzzer.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/ExternalLED.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Param/AP_Param.cpp" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.cpp" />
