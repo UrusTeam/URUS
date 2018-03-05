@@ -1,0 +1,1610 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<UrusStudio_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MasterApmLibs" />
+		<Option execution_dir="." />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="APM2_Release">
+				<Option output="build/apm2/lib/Release/MasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/apm2/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fno-use-cxa-atexit" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega2560" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-DWAF_BUILD=0" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_APM2=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAVE_CMATH_ISNAN=1" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-mmcu=atmega2560" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="sh -c &apos;./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink&apos;" />
+				</ExtraCommands>
+			</Target>
+			<Target title="APM328_Release">
+				<Option output="build/apm2/lib/Release/MasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/apm2/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fno-use-cxa-atexit" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega328p" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-DWAF_BUILD=0" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_APM328=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAVE_CMATH_ISNAN=1" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-mmcu=atmega328p" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="sh -c &apos;./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink&apos;" />
+				</ExtraCommands>
+			</Target>
+			<Target title="APM16U_Release">
+				<Option output="build/apm2/lib/Release/MasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/apm2/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega16u2" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-DWAF_BUILD=0" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_APM16U=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAVE_CMATH_ISNAN=1" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-mmcu=atmega16u2" />
+				</Linker>
+			</Target>
+			<Target title="URUSCYGWIN_Release">
+				<Option output="build/uruscygwin/lib/Release/MasterApmLibs" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/uruscygwin/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fpermissive" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-Wno-trigraphs" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-missing-field-initializers" />
+					<Add option="-DWAF_BUILD=1" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DSHAL_CORE_CYGWIN=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_CYGWIN" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=1" />
+					<Add option="-DHAVE_CMATH_H=1" />
+					<Add option="-DHAVE_STD_NULLPTR_T=1" />
+					<Add option="-DHAVE_CMATH_ISNAN=1" />
+					<Add option="-DHAL_OS_POSIX_IO=1" />
+					<Add option="-DHAVE_STD_MOVE=1" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=1" />
+					<Add option="-DHAVE_CMATH_ISFINITE=1" />
+					<Add option="-DHAVE_CMATH_ISINF=1" />
+					<Add option="-DNEED_CMATH_ISFINITE_STD_NAMESPACE=1" />
+					<Add option="-DNEED_CMATH_ISINF_STD_NAMESPACE=1" />
+					<Add option="-DNEED_CMATH_ISNAN_STD_NAMESPACE=1" />
+					<Add option="-DHAVE_ENDIAN_H=1" />
+					<Add option="-DHAVE_BYTESWAP_H=1" />
+					<Add directory="libraries" />
+					<Add directory="libraries/AP_Common/missing" />
+					<Add directory="build/uruscygwin/libraries/" />
+					<Add directory="build/uruscygwin/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="sh -c &apos;./waf configure --board uruscygwin &amp;&amp; ./waf --target=mavlink&apos;" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Unit filename="libraries/AP_AHRS/AP_AHRS.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AHRS/AP_AHRS_DCM.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AHRS/AP_AHRS_NavEKF.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AHRS/AP_AHRS_View.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AccelCal/AP_AccelCal.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AccelCal/AP_AccelCal.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AccelCal/AccelCalibrator.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AccelCal/AccelCalibrator.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/AP_Airspeed.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/AP_Airspeed_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/AP_Airspeed_analog.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Airspeed/Airspeed_Calibration.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Baro/AP_Baro.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Baro/AP_Baro_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Baro/AP_Baro_HIL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Baro/AP_Baro_MS5611.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Baro/AP_Baro_URUS.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Maxell.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_Marvelmind.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_Marvelmind.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_Pozyx.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_Pozyx.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_SITL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Beacon/AP_Beacon_SITL.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BoardConfig/AP_BoardConfig.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_BoardConfig/board_drivers.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Camera/AP_Camera.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/AP_Common.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/AP_Common.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/AP_FWVersion.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/AP_Test.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/Bitmask.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/Location.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/Location.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Common/c++.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/AP_Compass.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/AP_Compass_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/AP_Compass_Calibration.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/AP_Compass_HIL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/AP_Compass_URUS.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/CompassCalibrator.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/Compass_PerMotor.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Compass/Compass_learn.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Declination/AP_Declination.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Declination/tables.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_ERB.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_GSOF.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_MAV.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_MTK.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_MTK19.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_NMEA.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_NOVA.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_QURT.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_SBF.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_SBP.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_SBP2.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_SIRF.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_UAVCAN.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/AP_GPS_UBLOX.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/GPS_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/GPS_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_GPS/GPS_detect_state.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/AP_HAL.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/AP_HAL_Boards.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/AP_HAL_Macros.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/AP_HAL_Main.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/AP_HAL_Namespace.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/AnalogIn.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/CAN.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Device.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Device.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/GPIO.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/HAL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/HAL.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/I2CDevice.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/OpticalFlow.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/RCInput.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/RCOutput.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/SPIDevice.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Scheduler.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Semaphores.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Storage.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/UARTDriver.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/UARTDriver.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Util.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/Util.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/board/urus.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/system.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/BetterStream.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/OwnPtr.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/Print.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/Print.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/RingBuffer.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/RingBuffer.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/Socket.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/Socket.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/Stream.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/ftoa_engine.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/ftoa_engine.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/functor.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/getopt_cpp.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/getopt_cpp.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/print_vprintf.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/print_vprintf.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/sparse-endian.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/srxl.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/srxl.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/utoa_invert.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL/utility/xtoa_fast.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/AP_HAL_URUS.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS_NAMESPACE.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusAnalogIn.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusGPIO.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusI2CDevice.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusSPIDevice.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusSemaphores.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusStorage.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusTimers.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusUARTDriver.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/CoreUrusUtil.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CORE_URUS_CYGWIN.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CORE_URUS_CYGWIN.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusAnalogIn_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusAnalogIn_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusGPIO_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusGPIO_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusI2CDevice_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusRCInput_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusRCInput_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusRCOutput_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusRCOutput_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusSPIDevice_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusSPIDevice_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusScheduler_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusScheduler_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusSemaphores_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusSemaphores_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusStorage_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusStorage_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusTimers_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusTimers_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusUARTDriver_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusUARTDriver_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusUtil_Cygwin.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/CoreUrusUtil_Cygwin.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/Device.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/CORE_URUS/U_CoreCygwin/Device.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/HAL_URUS_Class.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/HAL_URUS_Class.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_HAL_URUS/system.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AP_InertialSensor.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AP_InertialSensor.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AP_InertialSensor_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AP_InertialSensor_HIL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AP_InertialSensor_HIL.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AuxiliaryBus.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/AuxiliaryBus.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_InertialSensor/BatchSampler.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Joypad/AP_Joypad.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Joypad/AP_Joypad.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Joypad/AP_Joypad_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Joypad/AP_Joypad_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/AP_GeodesicGrid.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/AP_GeodesicGrid.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/AP_Math.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/AP_Math.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/crc.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/crc.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/definitions.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/edc.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/edc.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/location.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/location.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/matrix3.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/matrix3.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/matrixN.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/matrixN.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/matrix_alg.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/polygon.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/polygon.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/quaternion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/quaternion.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/rotations.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/vector2.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/vector2.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/vector3.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/vector3.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Math/vectorN.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mission/AP_Mission.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mission/AP_Mission.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount_Alexmos.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount_SToRM32.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount_SToRM32_serial.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount_Servo.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/AP_Mount_SoloGimbal.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/SoloGimbal.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/SoloGimbalEKF.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Mount/SoloGimbal_Parameters.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF2_core.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_NavEKF3/AP_NavEKF3_core.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/AP_BoardLED.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/AP_BoardLED.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/AP_Notify.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/AP_Notify.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/Display.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/Display_SH1106_I2C.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/Display_SSD1306_I2C.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/ExternalLED.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/ExternalLED.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/RGBLed.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/RGBLed.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/ToshibaLED.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/ToshibaLED.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/ToshibaLED_I2C.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Notify/ToshibaLED_I2C.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Param/AP_Param.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Param/AP_Param.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Param_Helper/AP_Param_Helper.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Param_Helper/AP_Param_Helper.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_MAV.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_SITL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RPM/AP_RPM.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RPM/AP_RPM.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RPM/RPM_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RPM/RPM_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RSSI/AP_RSSI.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Rally/AP_Rally.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_BBB_PRU.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_Bebop.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_LeddarOne.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_LightWareI2C.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_LightWareSerial.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_MAVLink.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_MaxsonarI2CXL.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_MaxsonarSerialLV.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_PulsedLightLRF.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_TeraRangerI2C.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_VL53L0X.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_analog.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/AP_RangeFinder_uLanding.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/RangeFinder.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/RangeFinder.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/RangeFinder_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_RangeFinder/RangeFinder_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Relay/AP_Relay.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_SBusOut/AP_SBusOut.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Scheduler/AP_Scheduler.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Scheduler/AP_Scheduler.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Scheduler/PerfInfo.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Scheduler/PerfInfo.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_SerialManager/AP_SerialManager.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/AP_Volz_Protocol/AP_Volz_Protocol.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DFMessageWriter.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DFMessageWriter.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_Backend.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_Backend.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_File.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_File.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_File_sd.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_File_sd.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_MAVLink.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_MAVLink.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/DataFlash_MAVLinkLogTransfer.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/LogFile.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/DataFlash/LogStructure.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/Filter/DerivativeFilter.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/Filter/LowPassFilter.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/Filter/LowPassFilter.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/Filter/LowPassFilter2p.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/Filter/LowPassFilter2p.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/Filter/NotchFilter.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_Common.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_DeviceOp.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_Dummy.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_MAVLink.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_MAVLink.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_Param.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_Rally.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_ServoRelay.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_Signing.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/GCS_serial_control.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/MAVLink_routing.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/GCS_MAVLink/MAVLink_routing.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/RC_Channel/RC_Channel.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/RC_Channel/RC_Channels.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/SRV_Channel/SRV_Channel.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/SRV_Channel/SRV_Channel_aux.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/SRV_Channel/SRV_Channels.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/StorageManager/StorageManager.cpp">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="libraries/StorageManager/StorageManager.h">
+			<Option target="URUSCYGWIN_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AP_AccelCal.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AccelCalibrator.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_BoardConfig/AP_BoardConfig.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/AP_Common.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/c++.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Boards.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/HAL.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/UARTDriver.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Util.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/board/urus.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/Print.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/ftoa_engine.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/print_vprintf_PSTR.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/utoa_invert.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusAnalogIn_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusGPIO_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusI2CDevice_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCInput_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCOutput_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSPIDevice_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_TimerAvr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSemaphores_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusStorage_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusTimers_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUARTDriver_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUtil_Avr.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/system.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_HIL.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AuxiliaryBus.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_Backend.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_Backend.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_USB.cpp">
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_USB.h">
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/external/avr/usb_gamepad_def_shared.h">
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/external/avr/usb_gamepad_ext.c">
+			<Option compilerVar="CC" />
+			<Option target="APM16U_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_GeodesicGrid.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_Math.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/location.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix3.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrixN.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix_alg.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/polygon.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/quaternion.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector2.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector3.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_Notify.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/Buzzer.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/ExternalLED.cpp">
+			<Option target="APM2_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Param/AP_Param.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_Identity.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Scheduler/AP_Scheduler.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/DerivativeFilter.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/LowPassFilter.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/LowPassFilter2p.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/StorageManager/StorageManager.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</UrusStudio_project_file>
