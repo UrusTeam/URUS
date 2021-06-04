@@ -184,11 +184,11 @@ void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
         delay_microseconds(centinel_micros);
 
         if (dt_micros > centinel_micros) {
-            centinel_micros = dt_micros - (dt_micros - centinel_micros);
+            centinel_micros = centinel_micros + (dt_micros - centinel_micros);
         }
 
         if (dt_micros < centinel_micros) {
-            centinel_micros = dt_micros + (centinel_micros - dt_micros);
+            centinel_micros = centinel_micros - dt_micros;
         }
 
         ms_cb--;
