@@ -132,8 +132,8 @@
 					<Add option="-mcall-prologues" />
 					<Add option="-O2" />
 					<Add option="-Wall" />
-					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
 					<Add option="-std=gnu++11" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
 					<Add option="-ffunction-sections" />
 					<Add option="-fdata-sections" />
 					<Add option="-fno-exceptions" />
@@ -171,6 +171,63 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-mmcu=atmega16u2" />
+				</Linker>
+			</Target>
+			<Target title="APM32U4_Release">
+				<Option output="build/apm2/lib/Release/MasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/apm2/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++11" />
+					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega32u4" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_APM32U4=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add option="-DUSB_VID=0x234b" />
+					<Add option="-DUSB_PID=0x8036" />
+					<Add option='-DUSB_MANUFACTURER=&quot;URUS&quot;' />
+					<Add option='-DUSB_PRODUCT=&quot;URUS APM32U4&quot;' />
+					<Add option="-DUSBCON" />
+					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-mmcu=atmega32u4" />
 				</Linker>
 			</Target>
 			<Target title="MEGA02_Release">
@@ -2661,11 +2718,27 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Boards.h">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
+			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Main.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Namespace.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Device.cpp">
@@ -2680,17 +2753,27 @@
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/HAL.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/HAL.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/UARTDriver.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Util.cpp">
 			<Option target="APM2_Release" />
@@ -2701,39 +2784,72 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/Print.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/RingBuffer.cpp">
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/ftoa_engine.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/print_vprintf_PSTR.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/utoa_invert.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/AP_HAL_URUS.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS_NAMESPACE.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.cpp">
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM328_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.cpp">
 			<Option target="APM2_Release" />
+			<Option target="MEGA02_Release" />
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.cpp">
@@ -2741,17 +2857,30 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.h">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CDC.cpp">
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
+			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusAnalogIn_Avr.cpp">
@@ -2763,6 +2892,7 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusI2CDevice_Avr.cpp">
 			<Option target="APM2_Release" />
@@ -2771,10 +2901,12 @@
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCInput_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM328_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCOutput_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM328_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSPIDevice_Avr.cpp">
 			<Option target="APM2_Release" />
@@ -2785,51 +2917,78 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_TimerAvr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSemaphores_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusStorage_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusTimers_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUARTDriver_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUsbUARTDriver_Avr.cpp">
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUsbUARTDriver_Avr.h">
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUtil_Avr.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/USBAPI.h">
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/USBCore.cpp">
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/USBCore.h">
+			<Option target="APM32U4_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/USBDesc.h">
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.cpp">
@@ -2837,7 +2996,9 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp">
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
@@ -2847,6 +3008,7 @@
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp">
 			<Option target="APM2_Release" />
@@ -2995,6 +3157,7 @@
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
 			<Option target="APM328_Release" />
+			<Option target="APM32U4_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/DerivativeFilter.cpp">
 			<Option target="APM2_Release" />
@@ -3029,6 +3192,48 @@
 		<Unit filename="modules/urus_modules/masterlibs/libraries/StorageManager/StorageManager.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper_Backend.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper_Backend.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper_Generic.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper_Generic.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
 		</Unit>
 		<Unit filename="modules/urus_modules/modlibs/UR_Protocol/URUS_Protocol.cpp">
@@ -3067,10 +3272,6 @@
 			<Option target="URUSCYGWIN_WX30_Release" />
 			<Option target="URUSCYGWIN_WX30_Debug" />
 		</Unit>
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </UrusStudio_project_file>
