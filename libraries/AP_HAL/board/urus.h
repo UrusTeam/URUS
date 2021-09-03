@@ -18,7 +18,7 @@
 #define HIGH 1
 #endif
 #ifndef LOW
-#define LOW 1
+#define LOW 0
 #endif
 
 #if CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN
