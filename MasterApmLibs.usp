@@ -185,7 +185,6 @@
 					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-std=gnu++11" />
-					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
 					<Add option="-ffunction-sections" />
 					<Add option="-fdata-sections" />
 					<Add option="-fno-exceptions" />
@@ -203,7 +202,7 @@
 					<Add option="-Wno-overflow" />
 					<Add option="-D__STDC_FORMAT_MACROS=1" />
 					<Add option="-D_GNU_SOURCE=1" />
-					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DF_CPU=16000000UL" />
 					<Add option="-DSHAL_CORE_APM32U4=1" />
 					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
 					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
@@ -216,10 +215,8 @@
 					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
 					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
 					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
-					<Add option="-DUSB_VID=0x234b" />
+					<Add option="-DUSB_VID=0x2341" />
 					<Add option="-DUSB_PID=0x8036" />
-					<Add option='-DUSB_MANUFACTURER=&quot;URUS&quot;' />
-					<Add option='-DUSB_PRODUCT=&quot;URUS APM32U4&quot;' />
 					<Add option="-DUSBCON" />
 					<Add directory="modules/urus_modules/masterlibs/libraries" />
 					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
@@ -793,6 +790,8 @@
 		</Unit>
 		<Unit filename="libraries/AP_Common/missing/cmath">
 			<Option target="URUSCYGWIN_Release" />
+			<Option target="URUSCYGWIN_WX30_Release" />
+			<Option target="URUSCYGWIN_WX30_Debug" />
 		</Unit>
 		<Unit filename="libraries/AP_Compass/AP_Compass.cpp">
 			<Option target="URUSCYGWIN_Release" />
@@ -2363,6 +2362,8 @@
 		<Unit filename="libraries/AP_Vehicle/AP_Vehicle.h">
 			<Option target="URUSCYGWIN_Release" />
 			<Option target="URUSCYGWIN_WX30_Release" />
+			<Option target="URUSCYGWIN_Debug" />
+			<Option target="URUSCYGWIN_WX30_Debug" />
 		</Unit>
 		<Unit filename="libraries/AP_Volz_Protocol/AP_Volz_Protocol.cpp">
 			<Option target="URUSCYGWIN_Release" />
@@ -2706,12 +2707,18 @@
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/AP_Common.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="URUSCYGWIN_WX30_Debug" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/AP_Common.h">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
 			<Option target="MEGA02_Release" />
+			<Option target="URUSCYGWIN_WX30_Debug" />
 		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/c++.cpp">
 			<Option target="APM2_Release" />
@@ -2813,7 +2820,14 @@
 			<Option target="MEGA02_Release" />
 			<Option target="APM32U4_Release" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/AP_HAL_URUS.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/AP_HAL_URUS.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+			<Option target="URUSCYGWIN_WX30_Debug" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
@@ -2984,7 +2998,21 @@
 			<Option target="MEGA02_Release" />
 			<Option target="APM32U4_Release" />
 		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.h">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
 			<Option target="APM16U_Release" />
@@ -2998,7 +3026,14 @@
 			<Option target="MEGA02_Release" />
 			<Option target="APM32U4_Release" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM16U_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+			<Option target="URUSCYGWIN_WX30_Debug" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp">
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
@@ -3113,6 +3148,16 @@
 			<Option target="MEGA02_Release" />
 			<Option target="APM328_Release" />
 		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Menu/AP_Menu.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Menu/AP_Menu.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.cpp">
 			<Option target="APM2_Release" />
 			<Option target="MEGA02_Release" />
@@ -3194,6 +3239,18 @@
 			<Option target="APM328_Release" />
 			<Option target="MEGA02_Release" />
 		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Rotary_Encoder/UR_Rotary_Encoder.cpp">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Rotary_Encoder/UR_Rotary_Encoder.h">
+			<Option target="APM2_Release" />
+			<Option target="APM328_Release" />
+			<Option target="APM32U4_Release" />
+			<Option target="MEGA02_Release" />
+		</Unit>
 		<Unit filename="modules/urus_modules/masterlibs/libraries/UR_Stepper/UR_Stepper.cpp">
 			<Option target="APM2_Release" />
 			<Option target="APM328_Release" />
@@ -3272,6 +3329,8 @@
 			<Option target="URUSCYGWIN_WX30_Release" />
 			<Option target="URUSCYGWIN_WX30_Debug" />
 		</Unit>
+		<Unit filename="modules/urus_modules/modlibs/UR_Protocol/utility/UR_RingBuffer.cpp" />
+		<Unit filename="modules/urus_modules/modlibs/UR_Protocol/utility/UR_RingBuffer.h" />
 		<Extensions />
 	</Project>
 </UrusStudio_project_file>
