@@ -59,6 +59,9 @@ public:
      */
     void printf(const char *s, ...) FMT_PRINTF(2, 3);
     void vprintf(const char *s, va_list ap);
+    void _printf_P(const char *s, ...) FMT_PRINTF(2, 3);
+#define PSTR(s) s
+#define printf_PS(fmt, ...) _printf_P((const char *)fmt, ## __VA_ARGS__)
 
     /*
       wait for at least n bytes of incoming data, with timeout in
