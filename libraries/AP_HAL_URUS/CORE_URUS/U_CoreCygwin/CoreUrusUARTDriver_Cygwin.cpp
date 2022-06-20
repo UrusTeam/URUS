@@ -47,7 +47,7 @@
 #include "CoreUrusUARTDriver_Cygwin.h"
 #include "CoreUrusScheduler_Cygwin.h"
 
-static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
+extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
 
 /* CLCoreUrusUARTDriver_Cygwin method implementations */
 
@@ -163,7 +163,6 @@ size_t CLCoreUrusUARTDriver_Cygwin::write(uint8_t c)
     */
     if (!_status_scheduling) {
         _timer_tick();
-        return 0;
     }
 
     return 1;
@@ -230,6 +229,7 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_connection(uint16_t port, bool wait
             fprintf(stderr, "socket failed - %s\n", strerror(errno));
             exit(1);
         }
+        fcntl(_listen_fd, F_SETFD, FD_CLOEXEC);
 
         /* we want to be able to re-use ports quickly */
         setsockopt(_listen_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
@@ -261,6 +261,8 @@ void CLCoreUrusUARTDriver_Cygwin::_tcp_start_connection(uint16_t port, bool wait
         fprintf(stdout, "Waiting for connection ....\n");
         fflush(stdout);
         _fd = accept(_listen_fd, nullptr, nullptr);
+        fcntl(_fd, F_SETFD, FD_CLOEXEC);
+
         if (_fd == -1) {
             fprintf(stderr, "accept() error - %s\n", strerror(errno));
             exit(1);
@@ -373,12 +375,20 @@ void CLCoreUrusUARTDriver_Cygwin::_uart_start_connection(void)
  */
 void CLCoreUrusUARTDriver_Cygwin::_check_connection(void)
 {
+    /*  If we aren't using task manager (AP_Scheduler), then we
+        process data byte each.
+    */
+    if (!_status_scheduling) {
+        _timer_tick();
+    }
+
     if (_connected) {
         // we only want 1 connection at a time
         return;
     }
     if (_select_check(_listen_fd)) {
-        _fd = accept(_listen_fd, nullptr, nullptr);
+        _fd = accept(_listen_fd, NULL, NULL);
+        fcntl(_fd, F_SETFD, FD_CLOEXEC);
         if (_fd != -1) {
             int one = 1;
             _connected = true;
@@ -456,8 +466,8 @@ void CLCoreUrusUARTDriver_Cygwin::_timer_tick(void)
         //_check_reconnect();
         return;
     }
-    uint32_t navail;
-    ssize_t nwritten;
+    uint32_t navail = 0;
+    ssize_t nwritten = 0;
 
     const uint8_t *readptr = _writebuffer.readptr(navail);
 
@@ -482,15 +492,24 @@ void CLCoreUrusUARTDriver_Cygwin::_timer_tick(void)
         return;
     }
 
-    char buf[space];
+    char buf[space] = {0};
     ssize_t nread = 0;
     if (!_use_send_recv) {
         int fd = _console?0:_fd;
-        nread = ::read(fd, buf, space);
-        if (nread == -1 && errno != EAGAIN && _uart_path) {
-            close(_fd);
-            _fd = -1;
-            _connected = false;
+        if (_select_check(fd)) {
+            nread = ::read(fd, buf, space);
+            if ((nread <= 0) || ((errno != EAGAIN) && (_uart_path))) {
+                close(_fd);
+                if (_uart_path) {
+                    _fd = -1;
+                }
+                _connected = false;
+                fprintf(stdout, "Closed connection on uart%c serial port %u\n", (char)(0x41 + _portNumber), _portNumber);
+                fflush(stdout);
+                return;
+            }
+        } else {
+            nread = 0;
         }
     } else {
         if (_select_check(_fd)) {
