@@ -9,6 +9,8 @@
 
 #include "joypad_remote.h"
 
+#define DEBUG 0
+
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 volatile bool JoypadRemote::_sending = false;
@@ -19,7 +21,7 @@ JoypadRemote::data_controller_t JoypadRemote::controller_data_buffer2;
 
 JoypadRemote joypadremote;
 
-static LowPassFilter2pInt *low_pass_filter[SENSORS_COUNT];
+static LowPassFilterInt *low_pass_filter[SENSORS_COUNT];
 int16_t filter_tmp;
 
 #define SCHED_TASK(func, _interval_ticks, _max_time_micros) SCHED_TASK_CLASS(JoypadRemote, &joypadremote, func, _interval_ticks, _max_time_micros)
@@ -40,23 +42,33 @@ JoypadRemote::JoypadRemote():
     sw_pins_pushing(false),
     _cal_ch_mask(0),
     _tone_speed(10),
-    _tone_on_off(false)
+    _tone_on_off(false),
+    _in_calibration(false)
 {
 }
 
 void JoypadRemote::live()
 {
+    if (_tone_on_off) {
+        hal.gpio->pinMode(12, HAL_GPIO_OUTPUT);
+    } else {
+        hal.gpio->pinMode(12, HAL_GPIO_INPUT);
+        //hal.gpio->write(12, LOW);
+    }
 #if CONFIG_JOYPAD != CFG_BCH_EXTRA
 #ifndef ENABLED_EXT_MUX
 #if CONFIG_SENSOR_CAL == ENABLED
     if (_cnt_sw_filter < 15) {
         for (uint8_t i = 0; i < SENSORS_COUNT; i++) {
-            if (filtered_value_buf[i] > 700) {
+            if (filtered_value_buf[i] < 100) {
                     _cnt_sw_controller++;
             }
 
-            if ((filtered_value_buf[i] > 5) && (filtered_value_buf[i] < 600)) {
+            if ((filtered_value_buf[i] > 5) && (filtered_value_buf[i] < 500)) {
                 _cal_ch_mask |= (1 << i);
+#if DEBUG == 1
+                hal.console->printf("CH[%d] CHMASK: 0x%02x\n", i, _cal_ch_mask);
+#endif // DEBUG
             }
         }
         _cnt_sw_filter++;
@@ -64,10 +76,11 @@ void JoypadRemote::live()
 
     if ((1 & (_cal_ch_mask >> 2)) &&
         (1 & (_cal_ch_mask >> 1)) && (_cnt_ch_cal_min < 20)) {
+        _in_calibration = true;
         _tone_on_off = true;
-        hal.gpio->write(13, 1);
+        hal.gpio->write(13, HAL_GPIO_LED_ON);
 
-        if (_cnt_ch_cal_min < 5) {
+        if (_cnt_ch_cal_min < 10) {
             for (uint8_t i = 0; i < SENSORS_COUNT; i++) {
                 if (1 & (_cal_ch_mask >> i)) {
                     rc[i]->set_radio_min(filtered_value_buf[i]);
@@ -84,23 +97,30 @@ void JoypadRemote::live()
             _tone_speed = 2;
         }
         _cnt_ch_cal_min++;
+#if DEBUG == 1
+        hal.console->printf("CAL MIN: %d MASK: 0x%02x\n", _cnt_ch_cal_min, _cal_ch_mask);
+#endif // DEBUG
     } else {
-        if (filtered_value_buf[2] > (rc[2]->get_radio_min() + 200) && (_cnt_ch_cal_max < 30) && (_cnt_ch_cal_min > 15)) {
+        if ((filtered_value_buf[2] > (rc[2]->get_radio_min() + 100)) && (_cnt_ch_cal_max < 30) && (_cnt_ch_cal_min > 15)) {
             _tone_speed = 7;
             if (_cnt_ch_cal_max > 28) {
                 _cnt_ch_cal_max = 30;
                 for (uint8_t i = 0; i < SENSORS_COUNT; i++) {
                     if (1 & (_cal_ch_mask >> i)) {
                         rc[i]->set_radio_max(filtered_value_buf[i]);
-                        rc[i]->set_radio_trim((filtered_value_buf[i]) / 2);
+                        rc[i]->set_radio_trim(filtered_value_buf[i] - ((filtered_value_buf[i]) / 3));
                         rc[i]->save_eeprom();
                     }
                 }
-                hal.gpio->write(13, 0);
-                hal.gpio->write(11, 0);
+                hal.gpio->write(13, LOW);
+                hal.gpio->write(11, LOW);
                 _tone_on_off = false;
+                _in_calibration = false;
             }
             _cnt_ch_cal_max++;
+#if DEBUG == 1
+            hal.console->printf("CHAN MASK AFTER: 0x%02x\n", _cal_ch_mask);
+#endif // DEBUG
         }
     }
 #elif CONFIG_SENSOR_CAL == DISABLED
@@ -136,24 +156,36 @@ void JoypadRemote::live()
     cntlive %= 10;
     if (cntlive == 0) {
         hal.gpio->toggle(13);
-        //hal.console->printf("CNTContrllr: %u CNTfilt %u\n", _cnt_sw_controller, _cnt_sw_filter);
+#if DEBUG == 1
+        hal.console->printf("CNTContrllr: %u CNTfilt %u\n", _cnt_sw_controller, _cnt_sw_filter);
         //hal.console->printf("rc1: %u rc2: %u\n", state[0].distance_cm, state[1].distance_cm);
+        for (uint8_t i = 0; i < SENSORS_COUNT; i++) {
+            hal.console->printf("rc[%d]: dist_cm:%u filtval:%d filtbuf:%d\n", i, state[i].distance_cm, filtered_value[i], filtered_value_buf[i]);
+        }
+        hal.console->printf("--------\n");
+#endif // DEBUG
     }
 }
 
 void JoypadRemote::setup(void)
 {
+#if DEBUG == 1
+    hal.uartA->begin(115200);
+#endif
 
     hal.scheduler->delay(300);
     hal.uartA->flush();
 
+    hal.gpio->pinMode(5, HAL_GPIO_OUTPUT);
+    hal.gpio->write(5, LOW);
+
 #ifndef ENABLED_EXT_MUX
     hal.gpio->pinMode(13, HAL_GPIO_OUTPUT);
-    hal.gpio->write(13, 0);
+    hal.gpio->write(13, LOW);
     hal.gpio->pinMode(12, HAL_GPIO_OUTPUT);
-    hal.gpio->write(12, 0);
+    hal.gpio->write(12, LOW);
     hal.gpio->pinMode(11, HAL_GPIO_OUTPUT);
-    hal.gpio->write(11, 1);
+    hal.gpio->write(11, HIGH);
 #else
     hal.gpio->pinMode(8, HAL_GPIO_OUTPUT);
     hal.gpio->write(8, 0);
@@ -195,8 +227,9 @@ void JoypadRemote::setup(void)
 #ifndef ENABLED_EXT_MUX
         _analogsensor[i] = new AnalogSensor(&state[i]);
 #endif // ENABLED_EXT_MUX
-        low_pass_filter[i] = new LowPassFilter2pInt(700, 25);
-        rc[i]->set_range(300);
+        low_pass_filter[i] = new LowPassFilterInt(700, 15);
+        rc[i]->set_angle(300);
+        rc[i]->set_default_dead_zone(2);
 #if CONFIG_SENSOR_CAL == DISABLED
         rc[i]->set_radio_max(1024);
         rc[i]->set_radio_trim((1024 - 1) / 2);
@@ -213,7 +246,7 @@ void JoypadRemote::setup(void)
 
     for (int i = PIN_FIRST; i < PIN_LAST; i++){
         hal.gpio->pinMode(i, HAL_GPIO_INPUT);
-        hal.gpio->write(i, 1);
+        hal.gpio->write(i, HIGH);
     }
 
     controller_data_buffer1 = get_empty_data_controller();
@@ -256,7 +289,11 @@ void JoypadRemote::update_sensor(void)
             filtered_value_buf[i] = new_value[i];
             rc[i]->set_pwm(new_value[i]);
 
-            filtered_value[i] = (int16_t)low_pass_filter[i]->apply(rc[i]->get_control_in());
+            filtered_value[i] = 500 + low_pass_filter[i]->apply(rc[i]->get_control_in());
+
+            if (new_value[i] < 50) {
+                filtered_value[i] = 0;
+            }
 
         }
 
@@ -306,6 +343,11 @@ void JoypadRemote::set_data(void)
         controller_data1.right_stick_y = filtered_value[RS_Y];
         controller_data1.stick3_x = filtered_value[ST_X];
         controller_data1.stick3_y = filtered_value[ST_Y];
+#if DEBUG == 1
+        if (_cnt_sw_filter >= 15) {
+            //hal.console->printf("Controller A detected\n");
+        }
+#endif // DEBUG
     } else {
         controller_data2.left_stick_x = filtered_value[LS_X];
         controller_data2.left_stick_y = filtered_value[LS_Y];
@@ -313,10 +355,17 @@ void JoypadRemote::set_data(void)
         controller_data2.right_stick_y = filtered_value[RS_Y];
         controller_data2.stick3_x = filtered_value[ST_X];
         controller_data2.stick3_y = filtered_value[ST_Y];
+#if DEBUG == 1
+        if (_cnt_sw_filter >= 15) {
+            //hal.console->printf("Controller B detected\n");
+        }
+#endif // DEBUG
     }
 #endif
 
-    set_controller_data(controller_data1, 0);
+    if (_cnt_sw_filter >= 15) {
+        set_controller_data(controller_data1, 0);
+    }
 
     for (int i = 0; i < BUTTON_ARRAY_LENGTH; i++) {
         controller_data2.button_array[i] = 0;
@@ -334,14 +383,30 @@ void JoypadRemote::set_data(void)
     controller_data2.stick3_x = filtered_value[RS_X1];
 #endif
 
-    set_controller_data(controller_data2, 1);
+    if (_cnt_sw_filter >= 15) {
+        set_controller_data(controller_data2, 1);
+    }
 }
 
 void JoypadRemote::send_data(void)
 {
+    if (_in_calibration) {
+        return;
+    }
+#if DEBUG == 1
+    _sending = false;
+    return;
+#endif // DEBUG
+    if (_cnt_sw_filter < 15) {
+        return;
+    }
+
     if (_sending) {
         return;
     }
+
+    hal.gpio->write(5, HIGH);
+
     _sending = true;
 
     if (hal.uartA->available() > 0) {
@@ -403,9 +468,9 @@ void JoypadRemote::beep(void) {
     if (_tone_on_off) {
         if (_tone_cnt > _tone_speed) {
             for (uint8_t i = 0; i < 25; i++) {
-                hal.gpio->write(12, 1);
+                hal.gpio->write(12, HIGH);
                 hal.scheduler->delay_microseconds(105);
-                hal.gpio->write(12, 0);
+                hal.gpio->write(12, LOW);
                 hal.scheduler->delay_microseconds(115);
             }
             _tone_cnt = 0;

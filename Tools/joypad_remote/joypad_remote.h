@@ -128,7 +128,6 @@ private:
 
     RC_Channel *rc[SENSORS_COUNT];
 
-    uint8_t _cnt_filter[SENSORS_COUNT];
     uint8_t _cnt_sw_filter;
     uint8_t _cal_ch_mask;
 
@@ -139,6 +138,8 @@ private:
     bool _tone_on_off;
     uint8_t _cnt_sw_controller;
     uint8_t _cnt_update_sensor;
+
+    bool _in_calibration;
 
     void update_sensor(void);
     void send_data(void);
