@@ -33,7 +33,7 @@ public:
         uint16_t distance_cm; // distance: in cm
         float voltage_mv;  // voltage in millivolts,
         uint8_t pin;
-        uint8_t ratiometric = 1;
+        uint8_t ratiometric = 0;
         uint8_t stop_pin = -1;
         uint16_t settle_time_ms = 0;
         float scaling = 1;
