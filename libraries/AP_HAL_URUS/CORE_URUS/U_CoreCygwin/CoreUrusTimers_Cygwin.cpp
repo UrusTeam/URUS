@@ -16,8 +16,6 @@
 #include <sys/time.h>
 #include <time.h>
 
-static NSCORE_URUS::CLCoreUrusScheduler* _scheduler = NSCORE_URUS::get_scheduler();
-
 static struct {
     struct timeval start_time;
 } state_tv;
