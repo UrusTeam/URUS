@@ -31,7 +31,7 @@ public:
     //////////////////////////////////////////////////////////////////
     // STOP!!! DO NOT CHANGE THIS VALUE UNTIL YOU FULLY UNDERSTAND THE
     // COMMENTS ABOVE. IF UNSURE, ASK ANOTHER DEVELOPER!!!
-    static const uint16_t k_format_version = 2;
+    static const uint16_t k_format_version = 3;
     //////////////////////////////////////////////////////////////////
 
 
@@ -58,6 +58,17 @@ public:
         k_param_rc_8,
         k_param_rc_9,
         k_param_rc_10,
+
+        k_param_rc_1B,
+        k_param_rc_2B,
+        k_param_rc_3B,
+        k_param_rc_4B,
+        k_param_rc_5B,
+        k_param_rc_6B,
+        k_param_rc_7B,
+        k_param_rc_8B,
+        k_param_rc_9B,
+        k_param_rc_10B,
         //
         // 220: Waypoint data
         //
@@ -79,6 +90,17 @@ public:
     RC_Channel rc_8;
     RC_Channel rc_9;
     RC_Channel rc_10;
+
+    RC_Channel rc_1B;
+    RC_Channel rc_2B;
+    RC_Channel rc_3B;
+    RC_Channel rc_4B;
+    RC_Channel rc_5B;
+    RC_Channel rc_6B;
+    RC_Channel rc_7B;
+    RC_Channel rc_8B;
+    RC_Channel rc_9B;
+    RC_Channel rc_10B;
 
     AP_Int8 command_total; // 1 if HOME is set
 

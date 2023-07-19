@@ -13,13 +13,19 @@
 #define PIN_FIRST   22
 #define PIN_LAST    44
 
-#define CFG_B737        1
-#define CFG_BCH         2
-#define CFG_ELIPEDAL    3
-#define CFG_BCH_EXTRA   4
-#define CFG_ELIPANEL    5
+#define PIN_SWCONFIG     7
+#define PIN_REBOOT      11
 
-#define CONFIG_JOYPAD CFG_B737
+#define CFG_B737            1
+#define CFG_BCH             2
+#define CFG_ELIPEDAL        3
+#define CFG_BCH_EXTRA       4
+#define CFG_ELIPANEL        5
+#define CFG_ELIPANEL_NEW    6
+
+#define NULL_SENSOR_CAL    -1
+
+#define CONFIG_JOYPAD CFG_ELIPANEL_NEW
 
 #if CONFIG_JOYPAD == CFG_B737
 #define CONTROLLER_DATA_CNT 2
@@ -35,6 +41,11 @@
 #define SENSORS_COUNT 7
 #define DISABLED_SWITCHING 1
 #define CONFIG_SENSOR_CAL ENABLED
+#elif CONFIG_JOYPAD == CFG_ELIPANEL_NEW
+#define CONTROLLER_DATA_CNT 1
+#define SENSORS_COUNT 7
+#define DISABLED_SWITCHING 1
+#define CONFIG_SENSOR_CAL NULL_SENSOR_CAL
 #elif CONFIG_JOYPAD == CFG_ELIPEDAL
 #define CONTROLLER_DATA_CNT 1
 #define DISABLED_SWITCHING 1
@@ -48,6 +59,35 @@
 #define CONFIG_SENSOR_CAL DISABLED
 //#define ENABLED_EXT_MUX 1
 #endif
+
+#pragma pack(push, 1)
+typedef struct __data_controller {
+    uint8_t button_array[BUTTON_ARRAY_LENGTH];
+    uint8_t dpad_left_on : 1;
+    uint8_t dpad_up_on : 1;
+    uint8_t dpad_right_on : 1;
+    uint8_t dpad_down_on : 1;
+    uint8_t dummy : 4;
+
+    int16_t left_stick_x;
+    int16_t left_stick_y;
+    int16_t right_stick_x;
+    int16_t right_stick_y;
+    int16_t stick3_x;
+    int16_t stick3_y;
+
+} data_controller_t;
+
+typedef struct __mincenmax_ir_t {
+    int16_t min;
+    int16_t cen;
+    int16_t max;
+public:
+    __mincenmax_ir_t()
+    {}
+} mincenmax_ir_t;
+
+#pragma pack(pop)
 
 class JoypadRemote {
 public:
@@ -75,30 +115,10 @@ private:
         ST_Y1
     };
 
-#pragma pack(push, 1)
-    typedef struct __data_controller
-    {
-        uint8_t button_array[BUTTON_ARRAY_LENGTH];
-        uint8_t dpad_left_on : 1;
-        uint8_t dpad_up_on : 1;
-        uint8_t dpad_right_on : 1;
-        uint8_t dpad_down_on : 1;
-        uint8_t dummy : 4;
-
-        int16_t left_stick_x;
-        int16_t left_stick_y;
-        int16_t right_stick_x;
-        int16_t right_stick_y;
-        int16_t stick3_x;
-        int16_t stick3_y;
-
-    } data_controller_t;
-#pragma pack(pop)
-
     Parameters g;
     AP_Param param_loader{var_info};
 
-    AP_Scheduler scheduler;
+    AP_Scheduler _scheduler;
     AnalogSensor::state_t state[SENSORS_COUNT];
 #ifndef ENABLED_EXT_MUX
     AnalogSensor *_analogsensor[SENSORS_COUNT];
@@ -114,8 +134,9 @@ private:
     uint32_t ins_counter;
     static const AP_Scheduler::Task scheduler_tasks[] PROGMEM;
 
-    uint32_t nowmicros;
+    uint32_t _nowmicros;
     uint8_t pin;
+    uint32_t _load_avg;
 
     int16_t filtered_value[SENSORS_COUNT];
     int16_t filtered_value_buf[SENSORS_COUNT];
@@ -141,6 +162,8 @@ private:
 
     bool _in_calibration;
 
+    static const AP_Param::Info var_info[];
+
     void update_sensor(void);
     void send_data(void);
     void set_data(void);
@@ -148,8 +171,12 @@ private:
     void beep(void);
     data_controller_t get_empty_data_controller(void);
     void set_controller_data(data_controller_t controller_data_set, uint8_t id);
-
-    static const AP_Param::Info var_info[];
+    void _check_cal_mode();
+    void _calibrate_sens();
+    void _update_sens(uint16_t delayms);
+    mincenmax_ir_t _get_mincenmax(uint8_t idx, int16_t sval);
+    void _set_conf_sensor_ir(uint8_t idx, mincenmax_ir_t mincendat);
+    void _detect_controller();
 };
 
 extern const AP_HAL::HAL& hal;
