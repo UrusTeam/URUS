@@ -32,12 +32,13 @@ AnalogSensor::AnalogSensor(state_t *_state):
     state(*_state)
 {
     source = hal.analogin->channel(_state->pin);
-    source->set_stop_pin(_state->pin);
 
     if (source == nullptr) {
         // failed to allocate a ADC channel? This shouldn't happen
         return;
     }
+
+    //source->set_stop_pin(_state->pin);
 }
 
 void AnalogSensor::update_voltage(void)
