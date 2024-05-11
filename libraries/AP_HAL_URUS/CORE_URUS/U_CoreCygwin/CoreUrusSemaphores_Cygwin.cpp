@@ -7,7 +7,7 @@
 
 #include "CoreUrusSemaphores_Cygwin.h"
 
-static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
+extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
 
 bool CLCoreUrusSemaphore_Cygwin::give() {
     return pthread_mutex_unlock(&_lock) == 0;

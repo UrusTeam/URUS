@@ -25,7 +25,7 @@
 
 static bool _thread_should_exit;
 
-static const AP_HAL::HAL &hal = AP_HAL::get_HAL();
+extern const AP_HAL::HAL &hal;
 
 /*
   per-bus callback thread
@@ -49,7 +49,9 @@ void *DeviceBus::bus_thread(void *arg)
     default:
         break;
     }
+#if !defined(SHAL_CORE_MINGW)
     pthread_setname_np(pthread_self(), name);
+#endif
 
     while (!_thread_should_exit) {
         uint64_t now = AP_HAL::micros64();
@@ -97,24 +99,24 @@ void *DeviceBus::bus_thread(void *arg)
     }
     return nullptr;
 }
-    
+
 AP_HAL::Device::PeriodicHandle DeviceBus::register_periodic_callback(uint32_t period_usec, AP_HAL::Device::PeriodicCb cb, AP_HAL::Device *_hal_device)
 {
     if (!thread_started) {
         thread_started = true;
-    
+
         pthread_attr_t thread_attr;
         struct sched_param param;
-    
+
         pthread_attr_init(&thread_attr);
         pthread_attr_setstacksize(&thread_attr, 1024);
-    
+
         param.sched_priority = thread_priority;
         (void)pthread_attr_setschedparam(&thread_attr, &param);
         pthread_attr_setschedpolicy(&thread_attr, SCHED_FIFO);
 
         hal_device = _hal_device;
-        
+
         pthread_create(&thread_ctx, &thread_attr, &DeviceBus::bus_thread, this);
     }
     DeviceBus::callback_info *callback = new DeviceBus::callback_info;
