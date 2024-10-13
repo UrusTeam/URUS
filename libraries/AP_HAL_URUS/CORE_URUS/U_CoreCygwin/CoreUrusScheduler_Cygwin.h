@@ -15,6 +15,7 @@
 #define DWORD uint16_t
 #endif // __unix__
 
+#include <pthread.h>
 
 /* Scheduler implementation: */
 class CLCoreUrusScheduler_Cygwin : public NSCORE_URUS::CLCoreUrusScheduler {
@@ -53,7 +54,7 @@ public:
     }
     void sitl_end_atomic();
 
-    void timer_event() {
+    void timer_event() override {
         _run_timer_procs(true);
         _run_io_procs(true);
     }
@@ -99,5 +100,9 @@ private:
     uint32_t start;
     static bool _in_delay_proc;
 
+    pthread_t isr_sched_thread;
+    pthread_attr_t thread_attr_sched;
+    pthread_t isr_timer_thread;
+    pthread_attr_t thread_attr_timer;
 };
 #endif // __CYGWIN__

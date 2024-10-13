@@ -12,6 +12,10 @@
 #include <AP_HAL/utility/Socket.h>
 #include <AP_HAL/utility/RingBuffer.h>
 
+#include <AP_Param/AP_Param.h>
+
+#include <termios.h>
+
 class CLCoreUrusUARTDriver_Cygwin : public NSCORE_URUS::CLCoreUrusUARTDriver {
 public:
 
@@ -19,10 +23,22 @@ public:
         NSCORE_URUS::CLCoreUrusUARTDriver(),
         _fd(-1),
         _portNumber(portNumber),
+        _connected(false),
+        _use_send_recv(false),
         _listen_fd(-1),
-        _console(console)
+        _console(console),
+        _use_rtscts(false)
     {
+        //AP_Param::setup_object_defaults(this, var_info);
+        //AP_Param::load_object_from_eeprom(this, var_info);
+        //AP_Param::setup_sketch_defaults();
+        //AP_Param::load_object_from_eeprom(this, var_info);
+        memset(_uartdynpath, 0, sizeof(_uartdynpath));
         _initialized = true;
+    }
+
+    ~CLCoreUrusUARTDriver_Cygwin() {
+        tcsetattr(1, TCSANOW, &_termiostmp);
     }
 
     static CLCoreUrusUARTDriver *from(AP_HAL::UARTDriver *uart) {
@@ -46,7 +62,7 @@ public:
     }
 
     bool tx_pending() override {
-        return (_writebuffer.space() != 0);
+        return (!_writebuffer.empty());
     }
 
     /* Implementations of Stream virtual methods */
@@ -71,6 +87,7 @@ public:
     }
 
 private:
+
     uint8_t _portNumber;
     bool _connected = false; // true if a client has connected
     bool _use_send_recv = false;
@@ -87,6 +104,7 @@ private:
 
     // IPv4 address of target for uartC
     const char *_tcp_client_addr;
+    uint32_t _timeout_unable_port;
 
     void _tcp_start_connection(uint16_t port, bool wait_for_connection);
     void _uart_start_connection(void);
@@ -98,10 +116,16 @@ private:
     bool _use_rtscts;
 
     /* default configuration for uart driver */
-    const char* path[5] = {
+    const char* path[6] = {
         "tcp:0:nowait",
-        "uart:/dev/ttyUSB0:115200",
-        "uart:/dev/ttyACM0:115200",
+#ifndef __unix__
+        "uart:COM3",
+#else
+        //"tcp:0:nowait",
+        "uart:/dev/ttyACM1",
+#endif // __unix__
+        "tcp:0:nowait",
+        "tcp:0:nowait",
         "tcp:0:nowait",
         "tcp:0:nowait",
     };
@@ -112,6 +136,29 @@ private:
         It's activated if we are using the AP_Scheduler.
     */
     bool _status_scheduling = false;
+    struct termios _termiostmp;
+/*
+    enum {
+        k_param_uartnum0,
+        k_param_uartnum1,
+        k_param_uartnum2,
+        k_param_uartnum3,
+        k_param_uartnum4,
+        k_param_uartnum5,
+        k_param_uartnum6,
+        k_param_uartnum7,
+        k_param_uartnum8,
+        k_param_uartnum9,
+    };
+
+    static AP_Int8 uartnum[10];
+
+    AP_Param param_loader{var_info};
+    static const struct AP_Param::Info var_info[];
+*/
+    static const char* _uartnum[];
+    char _uartdynpath[20];
+    AP_Int8 *_uartn;
 };
 
 #endif // __CYGWIN__

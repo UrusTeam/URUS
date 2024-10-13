@@ -15,9 +15,10 @@
 #include <time.h>
 #include <errno.h>
 #include <unistd.h>
+#include <signal.h>
 
 extern const AP_HAL::HAL& hal;
-static const NSCORE_URUS::CLCORE_URUS& _urus_core = NSCORE_URUS::get_CORE();
+extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
 
 AP_HAL::Proc CLCoreUrusScheduler_Cygwin::_failsafe = nullptr;
 volatile bool CLCoreUrusScheduler_Cygwin::_timer_suspended = false;
@@ -84,9 +85,9 @@ void *CLCoreUrusScheduler_Cygwin::_fire_isr_timer(void *arg)
          * shal isr timer with posix thread
          */
 #ifndef __unix__
-        usleep_win(clk_core_timers.isr_time);
+        usleep_win((DWORD)clk_core_timers.isr_time);
 #else
-        usleep(clk_core_timers.isr_time);
+        usleep((uint16_t)clk_core_timers.isr_time);
 #endif // __unix__
         //hal.scheduler->delay_microseconds(clk_core_timers.isr_time);
         fire_isr_timer();
@@ -94,7 +95,9 @@ void *CLCoreUrusScheduler_Cygwin::_fire_isr_timer(void *arg)
 
     _isr_timer_running = false;
     fprintf(stdout, "isr timer stoped!\n");
+    fflush(stdout);
 
+    pthread_detach(pthread_self());
     return NULL;
 }
 
@@ -112,16 +115,21 @@ void *CLCoreUrusScheduler_Cygwin::_fire_isr_sched(void *arg)
          * shal isr timer with posix thread
          */
 #ifndef __unix__
-        usleep_win((clk_core_timers.isr_time / CORE_SPEED_FREQ_PERCENT));
+        usleep_win((DWORD)(clk_core_timers.isr_time / (CORE_SPEED_FREQ_PERCENT * 2)));
 #else
-        usleep(clk_core_timers.isr_time * CORE_SPEED_FREQ_PERCENT);
+        uint16_t isrtime = (uint16_t)(clk_core_timers.isr_time * CORE_SPEED_FREQ_PERCENT);
+        if (isrtime == 0) {
+            isrtime = 1;
+        }
+        usleep(isrtime);
 #endif // __unix__
         fire_isr_sched();
-
     }
     _isr_sched_running = false;
     fprintf(stdout, "isr sched stoped!\n");
+    fflush(stdout);
 
+    pthread_detach(pthread_self());
     return NULL;
 }
 
@@ -131,36 +139,30 @@ void CLCoreUrusScheduler_Cygwin::init()
     clk_core_timers.clk_per_sec = CLOCKS_PER_SEC;
     start_sched();
 
-    /* See CLCoreUrusScheduler::fire_isr_timer on the TOP SHAL. */
-    pthread_t isr_timer_thread;
-    pthread_attr_t thread_attr_timer;
-
     pthread_attr_init(&thread_attr_timer);
     pthread_attr_setstacksize(&thread_attr_timer, 2048);
-
     pthread_attr_setschedpolicy(&thread_attr_timer, SCHED_FIFO);
-
-    pthread_create(&isr_timer_thread, &thread_attr_timer, &_fire_isr_timer, this);
-
-    /* See CLCoreUrusScheduler::fire_isr_sched on the TOP SHAL. */
-    pthread_t isr_sched_thread;
-    pthread_attr_t thread_attr_sched;
+    /* See CLCoreUrusScheduler::fire_isr_timer on the TOP SHAL. */
+    pthread_create(&isr_timer_thread, &thread_attr_timer, _fire_isr_timer, this);
 
     pthread_attr_init(&thread_attr_sched);
     pthread_attr_setstacksize(&thread_attr_sched, 2048);
-
     pthread_attr_setschedpolicy(&thread_attr_sched, SCHED_FIFO);
-
-    pthread_create(&isr_sched_thread, &thread_attr_sched, &_fire_isr_sched, this);
+    /* See CLCoreUrusScheduler::fire_isr_sched on the TOP SHAL. */
+    pthread_create(&isr_sched_thread, &thread_attr_sched, _fire_isr_sched, this);
 
 #if 0
-    printf("Cygwin Scheduler ok!\n");
+    ::printf("Cygwin Scheduler ok!\n");
 #endif
 }
 
 void CLCoreUrusScheduler_Cygwin::delay_microseconds(uint16_t usec)
 {
-    usleep(usec);
+#ifndef __unix__
+    usleep_win((DWORD)usec);
+#else
+    usleep((uint16_t)usec);
+#endif // __unix__
 }
 
 void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
@@ -175,11 +177,11 @@ void CLCoreUrusScheduler_Cygwin::delay(uint16_t ms)
     start = AP_HAL::millis();
     now_micros = AP_HAL::micros();
     dt_micros = 0;
-    centinel_micros = URUS_MAGIC_TIME;
+    centinel_micros = (uint16_t)URUS_MAGIC_TIME;
     ms_cb = ms;
 
-    while ((AP_HAL::millis() - start) < ms) {
-        dt_micros = AP_HAL::micros() - now_micros;
+    while ((AP_HAL::millis() - start) < (uint32_t)ms) {
+        dt_micros = (uint16_t)(AP_HAL::micros() - now_micros);
         now_micros = AP_HAL::micros();
         delay_microseconds(centinel_micros);
 
@@ -284,7 +286,14 @@ void CLCoreUrusScheduler_Cygwin::sitl_end_atomic() {
 
 void CLCoreUrusScheduler_Cygwin::reboot(bool hold_in_bootloader)
 {
-    hal.uartA->println("REBOOT NOT IMPLEMENTED\r\n");
+    stop_clock(0);
+    pthread_join(isr_timer_thread, NULL);
+    pthread_join(isr_sched_thread, NULL);
+#if !defined(SHAL_CORE_MINGW)
+    kill(getpid(), SIGTERM);
+#else
+    exit(1);
+#endif
 }
 
 void CLCoreUrusScheduler_Cygwin::_run_timer_procs(bool called_from_isr)
@@ -345,8 +354,6 @@ void CLCoreUrusScheduler_Cygwin::_run_io_procs(bool called_from_isr)
         _timer_event_missed = true;
     }
 
-    _in_io_proc = false;
-
     if (!_urus_core.scheduler->get_timer_event_eval()) {
         CLCoreUrusUARTDriver_Cygwin::from(hal.console)->_timer_tick();
         CLCoreUrusUARTDriver_Cygwin::from(hal.uartA)->_timer_tick();
@@ -356,7 +363,7 @@ void CLCoreUrusScheduler_Cygwin::_run_io_procs(bool called_from_isr)
         CLCoreUrusUARTDriver_Cygwin::from(hal.uartE)->_timer_tick();
         CLCoreUrusUARTDriver_Cygwin::from(hal.uartF)->_timer_tick();
     }
-
+    _in_io_proc = false;
 }
 
 /*
@@ -365,7 +372,8 @@ void CLCoreUrusScheduler_Cygwin::_run_io_procs(bool called_from_isr)
 void CLCoreUrusScheduler_Cygwin::stop_clock(uint64_t time_usec)
 {
     _stopped_clock_usec = time_usec;
-    if (_stopped_clock_usec == 0) {
+    if (_stopped_clock_usec == (uint64_t)0) {
+        _run_io_procs(false);
         _isr_sched_running = false;
         _isr_timer_running = false;
         return;

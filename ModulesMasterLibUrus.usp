@@ -18,7 +18,6 @@
 					<Add option="-mcall-prologues" />
 					<Add option="-Os" />
 					<Add option="-Wall" />
-					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
 					<Add option="-std=gnu++11" />
 					<Add option="-ffunction-sections" />
 					<Add option="-fdata-sections" />
@@ -60,9 +59,11 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-mmcu=atmega2560" />
+					<Add option="-Wl,--gc-sections" />
 				</Linker>
 				<ExtraCommands>
-					<Add before="sh -c &apos;./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink&apos;" />
+					<Add before='sh -c &quot;if [ ! -e build/sitl/libraries/GCS_MAVLink ]; then ./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink; fi&quot;' />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 			<Target title="APM328_Release">
@@ -76,7 +77,6 @@
 					<Add option="-mcall-prologues" />
 					<Add option="-Os" />
 					<Add option="-Wall" />
-					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
 					<Add option="-std=gnu++11" />
 					<Add option="-ffunction-sections" />
 					<Add option="-fdata-sections" />
@@ -86,7 +86,6 @@
 					<Add option="-fpermissive" />
 					<Add option="-Wformat" />
 					<Add option="-Wshadow" />
-					<Add option="-Wpointer-arith" />
 					<Add option="-Wcast-align" />
 					<Add option="-Wwrite-strings" />
 					<Add option="-Wno-unused-parameter" />
@@ -111,16 +110,18 @@
 					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
 					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
 					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
-					<Add directory="modules/urus_modules/masterlibs/libraries" />
+					<Add directory="modules/urus_modules/legacylibs/libraries" />
 					<Add directory="modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
 					<Add directory="build/sitl/libraries/GCS_MAVLink" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-mmcu=atmega328p" />
+					<Add option="-Wl,--gc-sections" />
 				</Linker>
 				<ExtraCommands>
-					<Add before="sh -c &apos;./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink&apos;" />
+					<Add before='sh -c &quot;if [ ! -e build/sitl/libraries/GCS_MAVLink ]; then ./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink; fi&quot;' />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 			<Target title="APM16U_Release">
@@ -134,7 +135,6 @@
 					<Add option="-mcall-prologues" />
 					<Add option="-Os" />
 					<Add option="-Wall" />
-					<Add option='-Wl,&quot;--gc-sections, --relax&quot;' />
 					<Add option="-std=gnu++11" />
 					<Add option="-ffunction-sections" />
 					<Add option="-fdata-sections" />
@@ -175,230 +175,409 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-mmcu=atmega16u2" />
+					<Add option="-Wl,--gc-sections" />
 				</Linker>
 			</Target>
+			<Target title="MEGA02_Release">
+				<Option output="build/apm2/lib/Release/MasterLibUrus" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="build/apm2/lib/obj/Release" />
+				<Option type="2" />
+				<Option compiler="avr-gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-mcall-prologues" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++11" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fno-exceptions" />
+					<Add option="-fsigned-char" />
+					<Add option="-fno-use-cxa-atexit" />
+					<Add option="-fpermissive" />
+					<Add option="-Wformat" />
+					<Add option="-Wshadow" />
+					<Add option="-Wpointer-arith" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wwrite-strings" />
+					<Add option="-Wno-unused-parameter" />
+					<Add option="-fno-threadsafe-statics" />
+					<Add option="-mmcu=atmega2560" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-overflow" />
+					<Add option="-D__STDC_FORMAT_MACROS=1" />
+					<Add option="-D_GNU_SOURCE=1" />
+					<Add option="-DF_CPU=16000000L" />
+					<Add option="-DSHAL_CORE_MEGA02=1" />
+					<Add option="-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE" />
+					<Add option="-DCONFIG_SHAL_CORE=SHAL_CORE_APM" />
+					<Add option="-DCONFIG_HAL_BOARD=HAL_BOARD_URUS" />
+					<Add option="-DHAVE_TYPE_TRAITS_H=0" />
+					<Add option="-DHAVE_CMATH_H=0" />
+					<Add option="-DHAVE_STD_NULLPTR_T=0" />
+					<Add option="-DHAL_OS_POSIX_IO=0" />
+					<Add option="-DHAVE_STD_MOVE=0" />
+					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
+					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
+					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
+					<Add option="-DWITH_BARO=1" />
+					<Add directory="modules/urus_modules/legacylibs/libraries" />
+					<Add directory="modules/urus_modules/legacylibs/libraries/AP_Common/missing" />
+					<Add directory="build/sitl/libraries/GCS_MAVLink" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-mmcu=atmega2560" />
+					<Add option="-Wl,--gc-sections" />
+				</Linker>
+				<ExtraCommands>
+					<Add before='sh -c &quot;if [ ! -e build/sitl/libraries/GCS_MAVLink ]; then ./waf configure --board sitl --static &amp;&amp; ./waf --target=mavlink; fi&quot;' />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
 		</Build>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AP_AccelCal.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AccelCal/AccelCalibrator.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_BoardConfig/AP_BoardConfig.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/AP_Common.h">
-			<Option target="APM2_Release" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_AttitudeControl/AC_PosControl.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_Fence/AC_Fence.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_PID/AC_P.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_PID/AC_PID.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_PID/AC_PI_2D.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_WPNav/AC_Circle.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AC_WPNav/AC_WPNav.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_AHRS/AP_AHRS.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_AHRS/AP_AHRS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_AHRS/AP_AHRS_DCM.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_AHRS/AP_AHRS_DCM.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_AHRS/AP_AHRS_NavEKF.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_AHRS/AP_AHRS_NavEKF.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro.h">
 			<Option target="APM328_Release" />
 		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_BMP085.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_BMP085.h">
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_Backend.h">
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_Glitch.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_Glitch.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_HIL.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_MS5611.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_URUS.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Baro/AP_Baro_URUS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_BattMonitor/AP_BattMonitor.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_I2C.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_BoardConfig/AP_BoardConfig.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass_HIL.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass_HMC5843.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass_URUS.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/AP_Compass_URUS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/Compass.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Compass/Compass_learn.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Declination/AP_Declination.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_Glitch.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_Glitch.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_MTK.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_MTK19.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_NMEA.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_SIRF.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/AP_GPS_UBLOX.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_GPS/GPS_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/AP_HAL.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/AP_HAL_Boards.h">
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/AP_HAL_Macros.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/AP_HAL_Main.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/AP_HAL_Namespace.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/AnalogIn.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/Device.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/Device.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/GPIO.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/HAL.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/HAL.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/I2CDevice.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/I2CDriver.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/RCInput.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/RCOutput.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/SPIDevice.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/SPIDriver.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/Scheduler.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/Storage.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/UARTDriver.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/UARTDriver.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/Util.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/Util.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/board/urus.h">
+			<Option target="APM328_Release" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/system.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/OwnPtr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/Print.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/Print.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/Stream.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/ftoa_engine.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/ftoa_engine.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/functor.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/print_vprintf.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/print_vprintf.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/utoa_invert.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL/utility/xtoa_fast.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_AVR/I2CDriver.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_AVR/Scheduler.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_AVR/Scheduler_Timer.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/AP_HAL_URUS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS_NAMESPACE.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusI2CDevice.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusAnalogIn_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusAnalogIn_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusGPIO_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusGPIO_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusI2CDevice_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusI2CDevice_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCInput_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCOutput_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSPIDevice_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSPIDevice_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_TimerAvr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSemaphores_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSemaphores_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusStorage_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusStorage_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusTimers_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusTimers_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUARTDriver_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUARTDriver_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUtil_Avr.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUtil_Avr.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/HAL_URUS_Class.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/HAL_URUS_Class.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_HAL_URUS/system.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialNav/AP_InertialNav.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialNav/AP_InertialNav.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialNav/AP_InertialNav_NavEKF.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialNav/AP_InertialNav_NavEKF.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor_ITG3200.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor_ITG3200.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_InertialSensor/AP_InertialSensor_UserInteract_MAVLink.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_LandingGear/AP_LandingGear.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/AP_Math.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/AP_Math.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/location.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/matrix3.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/quaternion.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/vector2.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/vector3.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Math/vector3.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Menu/AP_Menu.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Mission/AP_Mission.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsCoax.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsHeli.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsHexa.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsMatrix.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsMulticopter.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsOcta.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsOctaQuad.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsQuad.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsSingle.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsTri.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_MotorsY6.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Motors/AP_Motors_Class.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_NavEKF/AP_NavEKF.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Notify/AP_BoardLED.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Notify/AP_BoardLED.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Notify/AP_Notify.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Notify/RGBLed.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Notify/ToshibaLED.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Notify/ToshibaLED_I2C.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Param/AP_Param.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Param/AP_Param.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Progmem/AP_Progmem.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Progmem/AP_Progmem_AVR.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Progmem/AP_Progmem_AVR.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Progmem/AP_Progmem_Identity.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RCMapper/AP_RCMapper.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RPM/AP_RPM.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RPM/RPM_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RangeFinder/AP_RangeFinder.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RangeFinder/AP_RangeFinder_MaxsonarI2CXL.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RangeFinder/AP_RangeFinder_PulsedLightLRF.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RangeFinder/AP_RangeFinder_analog.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RangeFinder/RangeFinder.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_RangeFinder/RangeFinder_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Relay/AP_Relay.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Scheduler/AP_Scheduler.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_Scheduler/AP_Scheduler.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_SerialManager/AP_SerialManager.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/DataFlash/DataFlash.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/DataFlash/DataFlash.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/DataFlash/LogFile.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/AverageFilter.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/Butter.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/DerivativeFilter.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/DerivativeFilter.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/Filter.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/FilterClass.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/FilterWithBuffer.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/LowPassFilter.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/LowPassFilter.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/LowPassFilter2p.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/LowPassFilter2p.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/Filter/ModeFilter.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/GCS_MAVLink/GCS.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/GCS_MAVLink/GCS_Common.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/GCS_MAVLink/GCS_MAVLink.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/GCS_MAVLink/GCS_MAVLink.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/GCS_MAVLink/MAVLink_routing.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/PID/PID.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/RC_Channel/RC_Channel.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/RC_Channel/RC_Channel_aux.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/StorageManager/StorageManager.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/StorageManager/StorageManager.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Rotary_Encoder/UR_Rotary_Encoder.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Rotary_Encoder/UR_Rotary_Encoder.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Stepper/UR_Stepper.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Stepper/UR_Stepper.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Stepper/UR_Stepper_Backend.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Stepper/UR_Stepper_Backend.h" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Stepper/UR_Stepper_Generic.cpp" />
+		<Unit filename="modules/urus_modules/legacylibs/libraries/UR_Stepper/UR_Stepper_Generic.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AHRS/AP_AHRS.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AHRS/AP_AHRS_DCM.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_AHRS/AP_AHRS_NavEKF.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro_BMP085.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro_BMP085.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro_Backend.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro_Backend.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro_MS5611.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Baro/AP_Baro_URUS.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Common/c++.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Boards.h" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/HAL.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/UARTDriver.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Compass/AP_Compass.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Util.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Compass/AP_Compass.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_GPS/AP_GPS.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Macros.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Main.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AP_HAL_Namespace.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/AnalogIn.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Device.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/HAL.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/I2CDevice.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/SPIDevice.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Scheduler.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Storage.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/UARTDriver.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/Util.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/system.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/BetterStream.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/OwnPtr.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/Print.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/Stream.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/ftoa_engine.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/functor.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/print_vprintf.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/xtoa_fast.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialNav/AP_InertialNav.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor_legacy/AP_InertialSensor.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/board/urus.h" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/Print.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor_legacy/AP_InertialSensor.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor_legacy/AP_InertialSensor_Backend.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/ftoa_engine.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor_legacy/AP_InertialSensor_Backend.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor_legacy/AP_InertialSensor_ITG3200.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/print_vprintf_PSTR.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL/utility/utoa_invert.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CORE_URUS.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCInput.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusRCOutput.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/CoreUrusScheduler.h" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CORE_URUS_AVR.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusAnalogIn_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusGPIO_Avr.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusI2CDevice_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCInput_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusRCOutput_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSPIDevice_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_Avr.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusScheduler_TimerAvr.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusSemaphores_Avr.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusStorage_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusTimers_Avr.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUARTDriver_Avr.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/CoreUrusUtil_Avr.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/ISRRegistry.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/CORE_URUS/U_CoreAVR/utility/pins_arduino_mega.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/HAL_URUS_Class.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/dummy_libs/GCS_Mavlink.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_HAL_URUS/system.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_HIL.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor/AuxiliaryBus.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad.h" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_Backend.cpp" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_Backend.h" />
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_USB.cpp">
-			<Option target="APM16U_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/AP_Joypad_USB.h">
-			<Option target="APM16U_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/external/avr/usb_gamepad_def_shared.h">
-			<Option target="APM16U_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Joypad/external/avr/usb_gamepad_ext.c">
-			<Option compilerVar="CC" />
-			<Option target="APM16U_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_GeodesicGrid.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_Math.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/location.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix3.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrixN.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/matrix_alg.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/polygon.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/quaternion.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector2.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/vector3.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_Notify.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/Buzzer.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/ExternalLED.cpp">
-			<Option target="APM2_Release" />
-		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_InertialSensor_legacy/AP_InertialSensor_ITG3200.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Math/AP_Math.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Notify/AP_BoardLED.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Param/AP_Param.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem.h">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Param/AP_Param.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_RangeFinder/AP_RangeFinder.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_RangeFinder/AP_RangeFinder_analog.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_RangeFinder/RangeFinder.cpp">
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_AVR.h">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Progmem/AP_Progmem_Identity.h">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_RangeFinder/RangeFinder.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Scheduler/AP_Scheduler.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/DerivativeFilter.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/LowPassFilter.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
-		<Unit filename="modules/urus_modules/masterlibs/libraries/Filter/LowPassFilter2p.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
-		</Unit>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/AP_Scheduler/AP_Scheduler.h" />
+		<Unit filename="modules/urus_modules/masterlibs/libraries/DataFlash/DataFlash.h" />
 		<Unit filename="modules/urus_modules/masterlibs/libraries/StorageManager/StorageManager.cpp">
-			<Option target="APM2_Release" />
-			<Option target="APM328_Release" />
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Unit filename="modules/urus_modules/masterlibs/libraries/StorageManager/StorageManager.h" />
+		<Extensions />
 	</Project>
 </UrusStudio_project_file>

@@ -294,7 +294,9 @@
 					<Add option="-DHAVE_STD_REMOVE_REFERENCE=0" />
 					<Add option="-DHAL_MINIMIZE_FEATURES=1" />
 					<Add option="-DHAL_MINIMIZE_FEATURES_AVR=1" />
-					<Add option="-DDISABLED_SWITCHING=1" />
+					<Add option="-DENABLED_EXT_MUX=1" />
+					<Add option="-DCONFIG_JOYPAD=CFG_ELIPEDAL" />
+					<Add option="-DCONFIG_SENSOR_CAL=DISABLED" />
 					<Add directory="$(#URUSSTOOL.base)/src/URUS/modules/urus_modules/masterlibs/libraries" />
 					<Add directory="$(#URUSSTOOL.base)/src/URUS/modules/urus_modules/masterlibs/libraries/AP_Common/missing" />
 					<Add directory="../../modules/urus_modules/masterlibs/libraries/AP_Common/missing" />

@@ -367,7 +367,9 @@ void AP_Proximity_RPLidarA2::parse_response_descriptor()
         if (_descriptor[2] == 0x05 && _descriptor[3] == 0x00 && _descriptor[4] == 0x00 && _descriptor[5] == 0x40 && _descriptor[6] == 0x81) {
             // payload is SCAN measurement data
             _payload_length = sizeof(payload.sensor_scan);
+#if !defined(SHAL_CORE_MINGW)
             static_assert(sizeof(payload.sensor_scan) == 5, "Unexpected payload.sensor_scan data structure size");
+    #endif
             _response_type = ResponseType_SCAN;
             Debug(2, "Measurement response detected");
             _last_distance_received_ms = AP_HAL::millis();
@@ -376,7 +378,9 @@ void AP_Proximity_RPLidarA2::parse_response_descriptor()
         if (_descriptor[2] == 0x03 && _descriptor[3] == 0x00 && _descriptor[4] == 0x00 && _descriptor[5] == 0x00 && _descriptor[6] == 0x06) {
             // payload is health data
             _payload_length = sizeof(payload.sensor_health);
+#if !defined(SHAL_CORE_MINGW)
             static_assert(sizeof(payload.sensor_health) == 3, "Unexpected payload.sensor_health data structure size");
+#endif
             _response_type = ResponseType_Health;
             _last_distance_received_ms = AP_HAL::millis();
             _rp_state= rp_health;

@@ -49,12 +49,14 @@ void AP_Mission::init()
     check_eeprom_version();
 
     // changes in Content size break the storage
+#if !defined(SHAL_CORE_MINGW)
     static_assert(sizeof(union Content) == 12, "AP_Mission: Content must be 12 bytes");
+#endif
 
     // If Mission Clear bit is set then it should clear the mission, otherwise retain the mission.
     if (AP_MISSION_MASK_MISSION_CLEAR & _options) {
     	gcs().send_text(MAV_SEVERITY_INFO, "Clearing Mission");
-    	clear();	
+    	clear();
     }
 
     _last_change_time_ms = AP_HAL::millis();
@@ -67,7 +69,7 @@ void AP_Mission::start()
     _flags.state = MISSION_RUNNING;
 
     reset(); // reset mission to the first command, resets jump tracking
-    
+
     // advance to the first command
     if (!advance_current_nav_cmd()) {
         // on failure set mission complete
@@ -196,7 +198,7 @@ bool AP_Mission::clear()
 /// trucate - truncate any mission items beyond index
 void AP_Mission::truncate(uint16_t index)
 {
-    if ((unsigned)_cmd_total > index) {        
+    if ((unsigned)_cmd_total > index) {
         _cmd_total.set_and_save(index);
     }
 }
@@ -548,7 +550,7 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
     case 0:
         // this is reserved for storing 16 bit command IDs
         return MAV_MISSION_INVALID;
-        
+
     case MAV_CMD_NAV_WAYPOINT:                          // MAV ID: 16
     {
         copy_location = true;
@@ -793,7 +795,7 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
         cmd.content.do_engine_control.start_control = (packet.param1>0);
         cmd.content.do_engine_control.cold_start = (packet.param2>0);
         cmd.content.do_engine_control.height_delay_cm = packet.param3*100;
-        break;        
+        break;
 
     case MAV_CMD_NAV_PAYLOAD_PLACE:
         cmd.p1 = packet.param1*100; // copy max-descend parameter (m->cm)
@@ -888,7 +890,7 @@ MAV_MISSION_RESULT AP_Mission::mavlink_to_mission_cmd(const mavlink_mission_item
     mav_cmd.frame = packet.frame;
     mav_cmd.current = packet.current;
     mav_cmd.autocontinue = packet.autocontinue;
-    
+
     /*
       the strategy for handling both MISSION_ITEM and MISSION_ITEM_INT
       is to pass the lat/lng in MISSION_ITEM_INT straight through, and
@@ -916,9 +918,9 @@ MAV_MISSION_RESULT AP_Mission::mavlink_to_mission_cmd(const mavlink_mission_item
         mav_cmd.y = packet.y * 1.0e7f;
         break;
     }
-    
+
     MAV_MISSION_RESULT ans = mavlink_int_to_mission_cmd(mav_cmd, cmd);
-    
+
     return ans;
 }
 
@@ -926,9 +928,9 @@ MAV_MISSION_RESULT AP_Mission::mavlink_to_mission_cmd(const mavlink_mission_item
 bool AP_Mission::mission_cmd_to_mavlink(const AP_Mission::Mission_Command& cmd, mavlink_mission_item_t& packet)
 {
     mavlink_mission_item_int_t mav_cmd = {};
-    
+
     bool ans = mission_cmd_to_mavlink_int(cmd, (mavlink_mission_item_int_t&)mav_cmd);
-    
+
     packet.param1 = mav_cmd.param1;
     packet.param2 = mav_cmd.param2;
     packet.param3 = mav_cmd.param3;
@@ -963,16 +965,16 @@ bool AP_Mission::mission_cmd_to_mavlink(const AP_Mission::Mission_Command& cmd, 
         packet.y = mav_cmd.y * 1.0e-7f;
         break;
     }
-    
+
     return ans;
 }
 
 // mavlink_cmd_long_to_mission_cmd - converts a mavlink cmd long to an AP_Mission::Mission_Command object which can be stored to eeprom
 // return MAV_MISSION_ACCEPTED on success, MAV_MISSION_RESULT error on failure
-MAV_MISSION_RESULT AP_Mission::mavlink_cmd_long_to_mission_cmd(const mavlink_command_long_t& packet, AP_Mission::Mission_Command& cmd) 
+MAV_MISSION_RESULT AP_Mission::mavlink_cmd_long_to_mission_cmd(const mavlink_command_long_t& packet, AP_Mission::Mission_Command& cmd)
 {
     mavlink_mission_item_t miss_item = {0};
- 
+
     miss_item.param1 = packet.param1;
     miss_item.param2 = packet.param2;
     miss_item.param3 = packet.param3;
@@ -1009,7 +1011,7 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
     case 0:
         // this is reserved for 16 bit command IDs
         return false;
-        
+
     case MAV_CMD_NAV_WAYPOINT:                          // MAV ID: 16
         copy_location = true;
 #if APM_BUILD_TYPE(APM_BUILD_ArduPlane)
@@ -1249,7 +1251,7 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
         packet.param1 = cmd.content.do_engine_control.start_control?1:0;
         packet.param2 = cmd.content.do_engine_control.cold_start?1:0;
         packet.param3 = cmd.content.do_engine_control.height_delay_cm*0.01f;
-        break;        
+        break;
 
     case MAV_CMD_NAV_PAYLOAD_PLACE:
         copy_location = true;
@@ -1643,7 +1645,7 @@ uint16_t AP_Mission::num_commands_max(void) const
 // find the nearest landing sequence starting point (DO_LAND_START) and
 // return its index.  Returns 0 if no appropriate DO_LAND_START point can
 // be found.
-uint16_t AP_Mission::get_landing_sequence_start() 
+uint16_t AP_Mission::get_landing_sequence_start()
 {
     struct Location current_loc;
 
@@ -1665,7 +1667,7 @@ uint16_t AP_Mission::get_landing_sequence_start()
             if (min_distance < 0 || tmp_distance < min_distance) {
                 min_distance = tmp_distance;
                 landing_start_index = i;
-            }           
+            }
         }
     }
 

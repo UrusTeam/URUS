@@ -7,7 +7,7 @@
 #include "CoreUrusScheduler.h"
 #include <string.h>
 
-#define URUS_DEBUG 0
+#define URUS_DEBUG 1
 
 extern const NSCORE_URUS::CLCORE_URUS& _urus_core;
 

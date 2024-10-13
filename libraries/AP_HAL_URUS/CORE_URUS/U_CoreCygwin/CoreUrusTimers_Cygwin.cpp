@@ -12,9 +12,41 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdint.h>
+
+#if defined(SHAL_CORE_MINGW)
+#include <winsock2.h>
+#include <windows.h>
+#include <ws2tcpip.h>
+#include <wininet.h>
+//#include "signal_win.h"
+#ifndef __GNUC__
+#include "time_win.h"
+#include "unistd_win.h"
+#else
+#include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
+#define sleep(x) Sleep(x * 1000)
+#endif // __GNUC__
+
+#ifdef DLL_EXPORTS
+#define API_EXPORT __declspec(dllexport)
+#else
+#define API_EXPORT
+#endif  // DLL_EXPORTS
+
+#ifndef sleep
+#define sleep(x) Sleep(x * 1000)
+#endif
+
+#else
+#define API_EXPORT
+#include <unistd.h>
+#include <time.h>
 #include <sys/times.h>
 #include <sys/time.h>
-#include <time.h>
+#endif
+
 
 static struct {
     struct timeval start_time;

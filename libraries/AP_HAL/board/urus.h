@@ -22,13 +22,13 @@
 #endif
 
 #if CONFIG_SHAL_CORE == SHAL_CORE_CYGWIN
-#define HAL_BOARD_LOG_DIRECTORY "logs"
+//#define HAL_BOARD_LOG_DIRECTORY "logs"
 #define HAL_BOARD_TERRAIN_DIRECTORY "terrain"
 #define HAL_PARAM_DEFAULTS_PATH "etc/defaults.parm"
 #define HAL_CPU_CLASS HAL_CPU_CLASS_1000
 #define HAL_STORAGE_SIZE            16384
 #define HAL_STORAGE_SIZE_AVAILABLE  HAL_STORAGE_SIZE
-#define HAL_OS_POSIX_IO         1
+//#define HAL_OS_POSIX_IO         1
 #define HAL_HAVE_BOARD_VOLTAGE  1
 #define HAL_GPIO_LED_ON           LOW
 #define HAL_GPIO_LED_OFF          HIGH

@@ -1,4 +1,4 @@
-/* 
+/*
    DataFlash logging - file oriented variant
 
    This uses posix file IO to create log files called logNN.dat in the
@@ -7,7 +7,6 @@
 #pragma once
 
 #if HAL_OS_POSIX_IO || HAL_OS_FATFS_IO
-
 #include <AP_HAL/utility/RingBuffer.h>
 #include "DataFlash_Backend.h"
 
@@ -20,7 +19,11 @@
  */
 #define DATAFLASH_FILE_MINIMAL 1
 #else
+#if defined(SHAL_CORE_MINGW)
+#define DATAFLASH_FILE_MINIMAL 1
+#else
 #define DATAFLASH_FILE_MINIMAL 0
+#endif
 #endif
 
 class DataFlash_File : public DataFlash_Backend
@@ -54,7 +57,7 @@ public:
     uint16_t get_num_logs() override;
     uint16_t start_new_log(void) override;
     void LogReadProcess(const uint16_t log_num,
-                        uint16_t start_page, uint16_t end_page, 
+                        uint16_t start_page, uint16_t end_page,
                         print_mode_fn print_mode,
                         AP_HAL::BetterStream *port) override;
     void DumpPageInfo(AP_HAL::BetterStream *port) override;
@@ -171,7 +174,7 @@ private:
     // can open/close files without causing the backend to write to a
     // bad fd
     AP_HAL::Semaphore *write_fd_semaphore;
-    
+
     // performance counters
     AP_HAL::Util::perf_counter_t  _perf_write;
     AP_HAL::Util::perf_counter_t  _perf_fsync;

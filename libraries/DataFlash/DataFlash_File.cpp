@@ -1,4 +1,4 @@
-/* 
+/*
    DataFlash logging - file oriented variant
 
    This uses posix file IO to create log files called logs/NN.bin in the
@@ -32,7 +32,9 @@
 #include <sys/param.h>
 #include <sys/mount.h>
 #elif !DATAFLASH_FILE_MINIMAL
+#if !defined(SHAL_CORE_MINGW)
 #include <sys/statfs.h>
+#endif
 #endif
 #endif
 
@@ -137,7 +139,11 @@ void DataFlash_File::Init()
 #if !DATAFLASH_FILE_MINIMAL
     ret = stat(_log_directory, &st);
     if (ret == -1) {
+#if !defined(SHAL_CORE_MINGW)
         ret = mkdir(_log_directory, 0777);
+#else
+        ret = mkdir(_log_directory);
+#endif
     }
     if (ret == -1) {
         printf("Failed to create log directory %s : %s\n", _log_directory, strerror(errno));
@@ -448,7 +454,7 @@ bool DataFlash_File::NeedPrep()
 }
 
 /*
-  construct a log file name given a log number. 
+  construct a log file name given a log number.
   The number in the log filename will *not* be zero-padded.
   Note: Caller must free.
  */
@@ -567,7 +573,7 @@ bool DataFlash_File::_WritePrioritisedBlock(const void *pBuffer, uint16_t size, 
     if (!semaphore->take(1)) {
         return false;
     }
-        
+
     uint32_t space = _writebuf.space();
 
     if (_writing_startup_messages &&
@@ -642,9 +648,9 @@ uint16_t DataFlash_File::find_last_log()
             sscanf(buf, "%u", &ret);
 #else
             ret = strtol(buf, NULL, 10);
-#endif            
+#endif
         }
-        close(fd);    
+        close(fd);
     }
     return ret;
 }
@@ -761,7 +767,7 @@ int16_t DataFlash_File::get_log_data(const uint16_t list_entry, const uint16_t p
             hal.console->printf("Log read open fail for %s - %s\n",
                                 fname, strerror(saved_errno));
             free(fname);
-            return -1;            
+            return -1;
         }
         free(fname);
         _read_offset = 0;
@@ -982,7 +988,7 @@ uint16_t DataFlash_File::start_new_log(void)
   Read the log and print it on port
 */
 void DataFlash_File::LogReadProcess(const uint16_t list_entry,
-                                    uint16_t start_page, uint16_t end_page, 
+                                    uint16_t start_page, uint16_t end_page,
                                     print_mode_fn print_mode,
                                     AP_HAL::BetterStream *port)
 {
@@ -1077,13 +1083,13 @@ void DataFlash_File::LogReadProcess(const uint16_t list_entry,
  */
 void DataFlash_File::DumpPageInfo(AP_HAL::BetterStream *port)
 {
-    port->printf("DataFlash: num_logs=%u\n", 
-                   (unsigned)get_num_logs());    
+    port->printf("DataFlash: num_logs=%u\n",
+                   (unsigned)get_num_logs());
 }
 
 void DataFlash_File::ShowDeviceInfo(AP_HAL::BetterStream *port)
 {
-    port->printf("DataFlash logs stored in %s\n", 
+    port->printf("DataFlash logs stored in %s\n",
                    _log_directory);
 }
 
@@ -1163,7 +1169,7 @@ void DataFlash_File::_io_timer(void)
     if (nbytes == 0) {
         return;
     }
-    if (nbytes < _writebuf_chunk && 
+    if (nbytes < _writebuf_chunk &&
         tnow - _last_write_time < 2000UL) {
         // write in _writebuf_chunk-sized chunks, but always write at
         // least once per 2 seconds if data is available
@@ -1229,7 +1235,8 @@ void DataFlash_File::_io_timer(void)
           chunk, ensuring the directory entry is updated after each
           write.
          */
-#if CONFIG_HAL_BOARD != HAL_BOARD_SITL && CONFIG_HAL_BOARD_SUBTYPE != HAL_BOARD_SUBTYPE_LINUX_NONE && CONFIG_HAL_BOARD != HAL_BOARD_QURT
+#if CONFIG_HAL_BOARD != HAL_BOARD_SITL && CONFIG_HAL_BOARD_SUBTYPE != HAL_BOARD_SUBTYPE_LINUX_NONE && CONFIG_HAL_BOARD != HAL_BOARD_QURT \
+    && CONFIG_SHAL_CORE != SHAL_CORE_CYGWIN
         last_io_operation = "fsync";
         ::fsync(_write_fd);
         last_io_operation = "";
