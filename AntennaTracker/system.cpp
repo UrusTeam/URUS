@@ -19,21 +19,21 @@ void Tracker::init_tracker()
 
     // Check the EEPROM format version before loading any parameters from EEPROM
     load_parameters();
-
+#if !HAL_MINIMIZE_FEATURES_AVR
     gcs().set_dataflash(&DataFlash);
-
+#endif
     mavlink_system.sysid = g.sysid_this_mav;
 
     // initialise serial ports
     serial_manager.init();
 
     // setup first port early to allow BoardConfig to report errors
-    gcs().chan(0).setup_uart(serial_manager, AP_SerialManager::SerialProtocol_MAVLink, 0);
+    //gcs().chan(0).setup_uart(serial_manager, AP_SerialManager::SerialProtocol_MAVLink, 0);
 
     // Register mavlink_delay_cb, which will run anytime you have
     // more than 5ms remaining in your call to hal.scheduler->delay
     hal.scheduler->register_delay_callback(mavlink_delay_cb_static, 5);
-    
+
     BoardConfig.init();
 #if HAL_WITH_UAVCAN
     BoardConfig_CAN.init();
@@ -49,7 +49,7 @@ void Tracker::init_tracker()
     barometer.init();
 
     // we start by assuming USB connected, as we initialed the serial
-    // port with SERIAL0_BAUD. check_usb_mux() fixes this if need be.    
+    // port with SERIAL0_BAUD. check_usb_mux() fixes this if need be.
     usb_connected = true;
     check_usb_mux();
 
@@ -70,8 +70,12 @@ void Tracker::init_tracker()
     }
 
     // GPS Initialization
+#if !HAL_MINIMIZE_FEATURES_AVR
     gps.set_log_gps_bit(MASK_LOG_GPS);
     gps.init(serial_manager);
+#else
+    gps.init(NULL, serial_manager);
+#endif
 
     ahrs.init();
     ahrs.set_fly_forward(false);
@@ -82,8 +86,11 @@ void Tracker::init_tracker()
     init_barometer(true);
 
     // initialise DataFlash library
+#if !HAL_MINIMIZE_FEATURES_AVR
+#if LOGGING_ENABLED == ENABLED
     DataFlash.setVehicle_Startup_Log_Writer(FUNCTOR_BIND(&tracker, &Tracker::Log_Write_Vehicle_Startup_Messages, void));
-
+#endif // LOGGING_ENABLED
+#endif
     // set serial ports non-blocking
     serial_manager.set_blocking_writes_all(false);
 
@@ -119,7 +126,7 @@ void Tracker::init_tracker()
     }
 
     // disable safety if requested
-    BoardConfig.init_safety();    
+    BoardConfig.init_safety();
 }
 
 /*
@@ -190,13 +197,17 @@ void Tracker::set_ekf_origin(const Location& loc)
 void Tracker::arm_servos()
 {
     hal.util->set_soft_armed(true);
+#if !HAL_MINIMIZE_FEATURES_AVR
     DataFlash.set_vehicle_armed(true);
+#endif
 }
 
 void Tracker::disarm_servos()
 {
     hal.util->set_soft_armed(false);
+#if !HAL_MINIMIZE_FEATURES_AVR
     DataFlash.set_vehicle_armed(false);
+#endif
 }
 
 /*
@@ -234,7 +245,9 @@ void Tracker::set_mode(enum ControlMode mode, mode_reason_t reason)
     }
 
 	// log mode change
+#if !HAL_MINIMIZE_FEATURES_AVR
 	DataFlash.Log_Write_Mode(control_mode, reason);
+#endif
 }
 
 void Tracker::check_usb_mux(void)
@@ -253,8 +266,12 @@ void Tracker::check_usb_mux(void)
  */
 bool Tracker::should_log(uint32_t mask)
 {
+#if !HAL_MINIMIZE_FEATURES_AVR
     if (!DataFlash.should_log(mask)) {
         return false;
     }
     return true;
+#else
+    return false;
+#endif
 }

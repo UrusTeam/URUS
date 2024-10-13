@@ -63,6 +63,8 @@
 #include <AP_RangeFinder/AP_RangeFinder.h>
 #include <AP_Beacon/AP_Beacon.h>
 
+#include <SRV_Channel/SRV_Channel.h>
+
 // Configuration
 #include "config.h"
 #include "defines.h"
@@ -74,6 +76,17 @@
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include <SITL/SITL.h>
 #endif
+
+class dpoint_t {
+public:
+	double x,y;
+	dpoint_t(double X,double Y) : x(X), y(Y) { }
+	dpoint_t() : x(0) , y(0) { }
+};
+
+
+dpoint_t rotate_point(float cx, float cy, float angle, dpoint_t poi);
+dpoint_t rotate_deg_point(float cx, float cy, float angle, dpoint_t poi);
 
 class Tracker : public AP_HAL::HAL::Callbacks {
 public:
@@ -90,6 +103,10 @@ public:
     void loop() override;
 
 private:
+
+    Location loc_sta_airport;
+    Location loc_vor_plane;
+
     Parameters g;
 
     // main loop scheduler
@@ -102,7 +119,9 @@ private:
 
     bool usb_connected = false;
 
+#if !HAL_MINIMIZE_FEATURES_AVR
     DataFlash_Class DataFlash;
+#endif
 
     AP_GPS gps;
 
@@ -120,13 +139,13 @@ private:
     NavEKF3 EKF3{&ahrs, barometer, rng};
     AP_AHRS_NavEKF ahrs{ins, barometer, EKF2, EKF3};
 #else
-    AP_AHRS_DCM ahrs{ins, barometer};
+    AP_AHRS_DCM ahrs{ins, barometer, gps};
 #endif
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     SITL::SITL sitl;
 #endif
-    
+
     /**
        antenna control channels
     */
@@ -140,8 +159,10 @@ private:
     bool pitch_servo_out_filt_init = false;
 
     AP_SerialManager serial_manager;
+#if !HAL_MINIMIZE_FEATURES_AVR
     GCS_Tracker _gcs; // avoid using this; use gcs()
     GCS_Tracker &gcs() { return _gcs; }
+#endif
 
     AP_BoardConfig BoardConfig;
 
@@ -151,7 +172,9 @@ private:
 #endif
 
     // Battery Sensors
+#if !HAL_MINIMIZE_FEATURES_AVR
     AP_BattMonitor battery{MASK_LOG_CURRENT};
+#endif
 
     struct Location current_loc;
 
@@ -194,8 +217,8 @@ private:
     // use this to prevent recursion during sensor init
     bool in_mavlink_delay = false;
 
-    static const AP_Scheduler::Task scheduler_tasks[];
-    static const AP_Param::Info var_info[];
+    static const AP_Scheduler::Task scheduler_tasks[] PROGMEM;
+    static const AP_Param::Info var_info[] PROGMEM;
     static const struct LogStructure log_structure[];
 
     void one_second_loop();

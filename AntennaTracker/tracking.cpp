@@ -1,5 +1,43 @@
 #include "Tracker.h"
 
+dpoint_t rotate_point(float cx, float cy, float angle, dpoint_t poi)
+{
+  float si = sinf(angle);
+  float co = cosf(angle);
+
+  // translate point back to origin:
+  poi.x -= cx;
+  poi.y -= cy;
+
+  // rotate point
+  float xnew = poi.x * co - poi.y * si;
+  float ynew = poi.x * si + poi.y * co;
+
+  // translate point back:
+  poi.x = xnew + cx;
+  poi.y = ynew + cy;
+
+  return poi;
+}
+
+dpoint_t rotate_deg_point(float cx, float cy, float angle, dpoint_t poi)
+{
+/*
+    dpoint_t poitmp;
+
+    poitmp.x = cx;
+    poitmp.y = cy;
+*/
+    //dpoint_t ret = rotate(poi, poitmp, radians(angle));
+    dpoint_t ret = rotate_point(cx, cy, radians(angle), poi);
+
+    //poitmp.x = degrees((float)ret.x);
+    //poitmp.y = degrees((float)ret.y);
+
+    return ret;
+}
+
+
 /**
   update_vehicle_position_estimate - updates estimate of vehicle positions
   should be called at 50hz
@@ -8,7 +46,7 @@ void Tracker::update_vehicle_pos_estimate()
 {
     // calculate time since last actual position update
     float dt = (AP_HAL::micros() - vehicle.last_update_us) * 1.0e-6f;
-
+/*
     // if less than 5 seconds since last position update estimate the position
     if (dt < TRACKING_TIMEOUT_SEC) {
         // project the vehicle position to take account of lost radio packets
@@ -23,6 +61,23 @@ void Tracker::update_vehicle_pos_estimate()
         // vehicle has been lost, set lost flag
         vehicle.location_valid = false;
     }
+*/
+/*
+    dpoint_t rot_plane((double)loc_vor_plane.lng, (double)loc_vor_plane.lat);
+
+    dpoint_t degrot= rotate_deg_point(loc_sta_airport.lng, loc_sta_airport.lat, 0.5, rot_plane);
+    loc_vor_plane.lng = (int32_t)degrot.x;
+    loc_vor_plane.lat = (int32_t)degrot.y;
+*/
+    vehicle.location = loc_vor_plane;
+    vehicle.last_update_us = AP_HAL::micros();
+    vehicle.last_update_ms = AP_HAL::millis();
+
+    float north_offset = vehicle.vel.x * dt;
+    float east_offset = vehicle.vel.y * dt;
+    //location_offset(vehicle.location_estimate, north_offset, east_offset);
+    vehicle.location_estimate = loc_vor_plane;
+    vehicle.location_valid = true;
 }
 
 /**
@@ -35,6 +90,7 @@ void Tracker::update_tracker_position()
     // REVISIT: what if we lose lock during a mission and the antenna is moving?
     if (!ahrs.get_position(current_loc) && (gps.status() >= AP_GPS::GPS_OK_FIX_2D)) {
         current_loc = gps.location();
+        //current_loc = loc_sta_airport;
     }
 }
 
@@ -96,12 +152,12 @@ void Tracker::update_tracking(void)
         AP_HAL::millis() - start_time_ms < g.startup_delay*1000) {
         return;
     }
-
+#if !HAL_MINIMIZE_FEATURES_AVR
     // do not perform updates if safety switch is disarmed (i.e. servos can't be moved)
     if (hal.util->safety_switch_state() == AP_HAL::Util::SAFETY_DISARMED) {
         return;
     }
-
+#endif
     switch (control_mode) {
     case AUTO:
         update_auto();
@@ -127,6 +183,7 @@ void Tracker::update_tracking(void)
  */
 void Tracker::tracking_update_position(const mavlink_global_position_int_t &msg)
 {
+/*
     vehicle.location.lat = msg.lat;
     vehicle.location.lng = msg.lon;
     vehicle.location.alt = msg.alt/10;
@@ -138,6 +195,9 @@ void Tracker::tracking_update_position(const mavlink_global_position_int_t &msg)
     if (should_log(MASK_LOG_GPS)) {
         Log_Write_Vehicle_Pos(vehicle.location.lat, vehicle.location.lng, vehicle.location.alt, vehicle.vel);
     }
+*/
+    vehicle.last_update_us = AP_HAL::micros();
+    vehicle.last_update_ms = AP_HAL::millis();
 }
 
 

@@ -10,6 +10,7 @@
  */
 void Tracker::update_auto(void)
 {
+    return;
     // exit immediately if we do not have a valid vehicle position
     if (!vehicle.location_valid) {
         return;
@@ -27,10 +28,10 @@ void Tracker::update_auto(void)
     convert_ef_to_bf(pitch, yaw, bf_pitch, bf_yaw);
 
     // only move servos if target is at least distance_min away
-    if ((g.distance_min <= 0) || (nav_status.distance >= g.distance_min)) {
+    //if ((g.distance_min <= 0) || (nav_status.distance >= g.distance_min)) {
         update_pitch_servo(bf_pitch);
         update_yaw_servo(bf_yaw);
-    }
+    //}
 }
 
 void Tracker::calc_angle_error(float pitch, float yaw, bool direction_reversed)

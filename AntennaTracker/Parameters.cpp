@@ -11,7 +11,7 @@
 #define GOBJECT(v, name, class) { AP_PARAM_GROUP, name, Parameters::k_param_ ## v, (const void *)&tracker.v, {group_info : class::var_info} }
 #define GOBJECTN(v, pname, name, class) { AP_PARAM_GROUP, name, Parameters::k_param_ ## pname, (const void *)&tracker.v, {group_info : class::var_info} }
 
-const AP_Param::Info Tracker::var_info[] = {
+const AP_Param::Info Tracker::var_info[] PROGMEM = {
     // @Param: FORMAT_VERSION
     // @DisplayName: Eeprom format version number
     // @Description: This value is incremented when changes are made to the eeprom format
@@ -241,18 +241,19 @@ const AP_Param::Info Tracker::var_info[] = {
     // compatibility with previous releases of ArduPlane
     // @Group: GND_
     // @Path: ../libraries/AP_Baro/AP_Baro.cpp
-    GOBJECT(barometer, "GND_", AP_Baro),
+    //GOBJECT(barometer, "GND_", AP_Baro),
 
     // @Group: COMPASS_
     // @Path: ../libraries/AP_Compass/AP_Compass.cpp
-    GOBJECT(compass,                "COMPASS_",     Compass),
+    //GOBJECT(compass,                "COMPASS_",     Compass),
 
     // @Group: SCHED_
     // @Path: ../libraries/AP_Scheduler/AP_Scheduler.cpp
-    GOBJECT(scheduler, "SCHED_", AP_Scheduler),
+    //GOBJECT(scheduler, "SCHED_", AP_Scheduler),
 
     // @Group: SR0_
     // @Path: GCS_Mavlink.cpp
+#if !HAL_MINIMIZE_FEATURES_AVR
     GOBJECTN(gcs().chan(0), gcs0,        "SR0_",     GCS_MAVLINK),
 
     // @Group: SR1_
@@ -266,7 +267,7 @@ const AP_Param::Info Tracker::var_info[] = {
     // @Group: SR3_
     // @Path: GCS_Mavlink.cpp
     GOBJECTN(gcs().chan(3),  gcs3,       "SR3_",     GCS_MAVLINK),
-
+#endif
     // @Param: LOG_BITMASK
     // @DisplayName: Log bitmask
     // @Description: 4 byte bitmap of log types to enable
@@ -274,7 +275,7 @@ const AP_Param::Info Tracker::var_info[] = {
     // @Bitmask: 0:ATTITUDE,1:GPS,2:RCIN,3:IMU,4:RCOUT,5:COMPASS,6:Battery
     // @User: Standard
     GSCALAR(log_bitmask, "LOG_BITMASK", DEFAULT_LOG_BITMASK),
-
+#if !HAL_MINIMIZE_FEATURES_AVR
     // @Group: INS_
     // @Path: ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
     GOBJECT(ins,                    "INS_", AP_InertialSensor),
@@ -282,7 +283,7 @@ const AP_Param::Info Tracker::var_info[] = {
     // @Group: AHRS_
     // @Path: ../libraries/AP_AHRS/AP_AHRS.cpp
     GOBJECT(ahrs,                   "AHRS_",    AP_AHRS),
-
+#endif
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     // @Group: SIM_
     // @Path: ../libraries/SITL/SITL.cpp
@@ -302,22 +303,22 @@ const AP_Param::Info Tracker::var_info[] = {
     // GPS driver
     // @Group: GPS_
     // @Path: ../libraries/AP_GPS/AP_GPS.cpp
-    GOBJECT(gps, "GPS_", AP_GPS),
+    //GOBJECT(gps, "GPS_", AP_GPS),
 
     // @Group: NTF_
     // @Path: ../libraries/AP_Notify/AP_Notify.cpp
     GOBJECT(notify, "NTF_",  AP_Notify),
-
+#if !HAL_MINIMIZE_FEATURES_AVR
     // @Path: ../libraries/RC_Channel/RC_Channels.cpp
     GOBJECT(rc_channels,     "RC", RC_Channels),
 
     // @Path: ../libraries/SRV_Channel/SRV_Channels.cpp
     GOBJECT(servo_channels,     "SERVO", SRV_Channels),
-    
+
     // @Group: SERIAL
     // @Path: ../libraries/AP_SerialManager/AP_SerialManager.cpp
     GOBJECT(serial_manager,    "SERIAL",   AP_SerialManager),
-
+#endif
     // @Param: PITCH2SRV_P
     // @DisplayName: Pitch axis controller P gain
     // @Description: Pitch axis controller P gain.  Converts the difference between desired pitch angle and actual pitch angle into a pitch servo pwm change
@@ -387,7 +388,9 @@ const AP_Param::Info Tracker::var_info[] = {
 
     // @Group: BATT
     // @Path: ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
+#if !HAL_MINIMIZE_FEATURES_AVR
     GOBJECT(battery,                "BATT", AP_BattMonitor),
+#endif
 
     AP_VAREND
 };

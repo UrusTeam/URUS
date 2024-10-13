@@ -407,7 +407,7 @@ void Tracker::mavlink_snoop(const mavlink_message_t* msg)
         tracking_update_position(packet);
         break;
     }
-    
+
     case MAVLINK_MSG_ID_SCALED_PRESSURE:
     {
         // decode
@@ -462,7 +462,7 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
 {
     switch (msg->msgid) {
 
-    // If we are currently operating as a proxy for a remote, 
+    // If we are currently operating as a proxy for a remote,
     // alas we have to look inside each packet to see if it's for us or for the remote
     case MAVLINK_MSG_ID_REQUEST_DATA_STREAM:
     {
@@ -479,14 +479,14 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
         // decode
         mavlink_command_long_t packet;
         mavlink_msg_command_long_decode(msg, &packet);
-        
+
         MAV_RESULT result = MAV_RESULT_UNSUPPORTED;
-        
+
         // do command
         send_text(MAV_SEVERITY_INFO,"Command received: ");
-        
+
         switch(packet.command) {
-            
+
             case MAV_CMD_PREFLIGHT_CALIBRATION:
             {
                 if (is_equal(packet.param1,1.0f)) {
@@ -567,7 +567,7 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
                 }
                 break;
 
-                // mavproxy/mavutil sends this when auto command is entered 
+                // mavproxy/mavutil sends this when auto command is entered
             case MAV_CMD_MISSION_START:
                 tracker.set_mode(AUTO, MODE_REASON_GCS_COMMAND);
                 result = MAV_RESULT_ACCEPTED;
@@ -599,11 +599,11 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
             chan,
             packet.command,
             result);
-        
+
         break;
     }
-         
-    // When mavproxy 'wp sethome' 
+
+    // When mavproxy 'wp sethome'
     case MAVLINK_MSG_ID_MISSION_WRITE_PARTIAL_LIST:
     {
         // decode
@@ -715,7 +715,7 @@ mission_failed:
         break;
     }
 
-    case MAVLINK_MSG_ID_GLOBAL_POSITION_INT: 
+    case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
     {
         // decode
         mavlink_global_position_int_t packet;
@@ -724,7 +724,7 @@ mission_failed:
         break;
     }
 
-    case MAVLINK_MSG_ID_SCALED_PRESSURE: 
+    case MAVLINK_MSG_ID_SCALED_PRESSURE:
     {
         // decode
         mavlink_scaled_pressure_t packet;
