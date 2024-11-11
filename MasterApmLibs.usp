@@ -297,7 +297,7 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-O3" />
+					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-std=gnu++11" />
 					<Add option="-fPIC" />
@@ -335,7 +335,6 @@
 					<Add directory="build/uruscygwin/libraries/GCS_MAVLink" />
 				</Compiler>
 				<Linker>
-					<Add option="-O3" />
 					<Add option="-s" />
 					<Add option="-Wl,--gc-sections" />
 					<Add option="-pthread" />
